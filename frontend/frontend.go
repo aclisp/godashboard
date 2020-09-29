@@ -39,7 +39,15 @@ func init() {
 	grpclog.SetLoggerV2(grpclog.NewLoggerV2(DivWriter(div), ioutil.Discard, ioutil.Discard))
 }
 
+func removeContentLoadingIndicator() {
+	document = js.Global().Get("document")
+	div := document.Call("getElementById", "contents-loader")
+	div.Call("remove")
+}
+
 func main() {
+	removeContentLoadingIndicator()
+
 	cc, err := grpc.Dial("")
 	if err != nil {
 		grpclog.Println(err)

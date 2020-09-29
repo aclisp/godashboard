@@ -1,22 +1,31 @@
 <!doctype html>
-<!--
-Copyright 2018 The Go Authors. All rights reserved.
-Use of this source code is governed by a BSD-style
-license that can be found in the LICENSE file.
--->
+
 <html>
 
 <head>
 	<meta charset="utf-8">
-	<title>Go wasm</title>
+	<title>Go Dashboard</title>
+
+	<style>
+		.contents-loader {
+			text-align: center;
+			align-content: center;
+			align-items: center;
+			height: 100vh;
+			display: flex;
+		}
+		.contents-loader > div {
+			flex: 1;
+		}
+	</style>
+
 </head>
 
 <body>
-	<!--
-	Add the following polyfill for Microsoft Edge 17/18 support:
+	<!-- Add the following polyfill for Microsoft Edge 17/18 support: -->
 	<script src="https://cdn.jsdelivr.net/npm/text-encoding@0.7.0/lib/encoding.min.js"></script>
-	(see https://caniuse.com/#feat=textencoder)
-	-->
+	<!-- (see https://caniuse.com/#feat=textencoder) -->
+
 	<script src="wasm_exec.js"></script>
 	<script>
 		if (!WebAssembly.instantiateStreaming) { // polyfill
@@ -27,24 +36,28 @@ license that can be found in the LICENSE file.
 		}
 
 		const go = new Go();
-		let mod, inst;
-		WebAssembly.instantiateStreaming(fetch("main.wasm"), go.importObject).then((result) => {
-			mod = result.module;
-			inst = result.instance;
-			document.getElementById("runButton").disabled = false;
+		const resp = fetch("main.wasm").then((resp) => {
+			if (!resp.ok) {
+				resp.text().then((body) => {
+					document.body.innerHTML = "<pre>" + body + "</pre>";
+				});
+				throw new Error("fetch main.wasm: did not get acceptable status code: " + resp.status);
+			}
+			return resp;
+		});
+		WebAssembly.instantiateStreaming(resp, go.importObject).then((result) => {
+			go.run(result.instance);
 		}).catch((err) => {
 			console.error(err);
 		});
-
-		async function run() {
-			console.clear();
-			await go.run(inst);
-			inst = await WebAssembly.instantiate(mod, go.importObject); // reset instance
-		}
 	</script>
 
-	<button onClick="run();" id="runButton" disabled>Run</button>
 	<div id="target"></div>
+
+	<div id="contents-loader" class="contents-loader">
+		<div>Loading data, please wait...</div>
+	</div>
+
 </body>
 
 </html>
