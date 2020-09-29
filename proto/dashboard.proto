@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+// Package dashboard exposes a backend server over gRPC
+package dashboard;
+
+option go_package = "dashboard";
+
+// Backend defines the interface exposed by the backend.
+service Backend {
+    rpc Ping(Hello) returns (Pong);
+}
+
+message Hello {
+    string message = 1;
+}
+
+message Pong {
+    string reply = 1;
+}

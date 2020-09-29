@@ -4,6 +4,7 @@
 *.dll
 *.so
 *.dylib
+godashboard
 
 # Test binary, built with `go test -c`
 *.test
@@ -13,3 +14,9 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+.vscode/
+.idea/
+*.iml
+.DS_Store
+frontend/bundle/bundle.go
+frontend/html/*.wasm

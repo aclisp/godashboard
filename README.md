@@ -1,6 +1,6 @@
 # Go dashboard
 
-A dashboard application built in Go and gRPC using WebAssembly
+A dashboard application built in Go and gRPC using WebAssembly.
 
 ## Features
 
@@ -34,13 +34,13 @@ A dashboard application built in Go and gRPC using WebAssembly
 +----------------------+
 | backend gRPC server  |
 +----------------------+
-|   Business Systems   |
+|   Business System    |
 +----------------------+
 ```
 
 ## Limitations
 
-* To support gRPC-Web in the browser, an older grpc-go with an customized [patch](https://github.com/grpc/grpc-go/pull/2174) applied must be used. As the grpc-go and protobuf-go changed frequently, an older tool chain must be kept to build the project.
+* To support gRPC-Web in the browser, an older grpc-go with a customized [patch](https://github.com/grpc/grpc-go/pull/2174) applied must be used. As the grpc-go and protobuf-go changed frequently, an older tool chain must be kept to build the project.
 
 ## Dependencies
 
