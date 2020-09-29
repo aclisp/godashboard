@@ -23,14 +23,7 @@ import (
 var logger *logrus.Logger
 
 func init() {
-	logger = logrus.StandardLogger()
-	logrus.SetLevel(logrus.DebugLevel)
-	logrus.SetFormatter(&logrus.TextFormatter{
-		ForceColors:     true,
-		FullTimestamp:   true,
-		TimestampFormat: time.RFC3339Nano,
-		DisableSorting:  true,
-	})
+	logger = backend.Logger
 	// Should only be done from init functions
 	grpclog.SetLoggerV2(grpclog.NewLoggerV2(logger.Out, ioutil.Discard, ioutil.Discard))
 	// for pprof and trace
