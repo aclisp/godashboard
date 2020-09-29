@@ -14,7 +14,8 @@ A dashboard application built in Go and gRPC using WebAssembly.
   - [vfsgen](https://github.com/shurcooL/vfsgen)
   - and the reason [why it is chosen](https://tech.townsourced.com/post/embedding-static-files-in-go/)
 * Run `make serve` to start the web server. In this case, the static resources embedding is not used. They are served from disk as usual.
-* Run `go build` to get the standalone executable for release deployment
+  - Reload index.html could trigger a rebuild of main.wasm, just like wasmserve. Happy hacking!
+* Run `go build` (after running `make generate`) to get the standalone executable for release deployment
 
 ## Design
 
