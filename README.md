@@ -2,11 +2,17 @@
 
 A dashboard application built in Go and gRPC using WebAssembly.
 
+Using frontend framework such as [Vecty](https://github.com/hexops/vecty) or [Ebiten](https://github.com/hajimehoshi/ebiten), these type of application can be built with great productivity:
+
+- Admin dashboard
+- Multi-player online game
+
 ## Features
 
 * Pure Go in both frontend and backend. No need to learn another frontend JavaScript framework.
 * Type-safe Web APIs defined in gRPC+Protobuf. Move away from REST+JSON.
 * Standalone executable with all the assets embedded for easy deployment.
+* Automatically frontend code rebuild on page reload.
 
 ## Development
 
@@ -15,7 +21,7 @@ A dashboard application built in Go and gRPC using WebAssembly.
   - and the reason [why it is chosen](https://tech.townsourced.com/post/embedding-static-files-in-go/)
 * Run `make serve` to start the web server. In this case, the static resources embedding is not used. They are served from disk as usual.
   - Reload index.html could trigger a rebuild of main.wasm, just like wasmserve. Happy hacking!
-* Run `go build` (after running `make generate`) to get the standalone executable for release deployment
+* Run `go build` (after running `make generate`) to get the standalone executable for release deployment.
 
 ## Design
 
@@ -51,6 +57,18 @@ A dashboard application built in Go and gRPC using WebAssembly.
 * github.com/golang/protobuf (do not use google.golang.org/protobuf)
 * github.com/aclisp/grpc-go @branch add-grpc-web-client (forked from johanbrandhorst/grpc-go in case the upstream might be destroyed)
 * github.com/improbable-eng/grpc-web @v0.9.6 (this is the latest version work with grpc-go above, since which CloseNotifier is [removed](https://github.com/improbable-eng/grpc-web/pull/478))
+
+## The Name
+
+There are many so-called "godashboard" or "goadmin" projects, but no one is like this. The advantages are:
+
+* As a Gopher, developing everything from scratch in the full stack from frontend to backend is the motivation this project borns.
+* Thanks WebAssembly. Go developers can be competitive frontend developers, and you cann also share Go code between your frontend & backend.
+* Type-safe Web APIs will finally replace RESTful in the future.
+
+## Using `godashboard` as a beginning project
+
+The branch `beginning` can be used as a start point to hacking. It contains a minimum WebAssembly-gRPC working demo.
 
 ## References
 
