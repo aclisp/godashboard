@@ -10,7 +10,6 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/improbable-eng/grpc-web/go/grpcweb"
-	"github.com/sirupsen/logrus"
 	"golang.org/x/net/trace"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/grpclog"
@@ -20,10 +19,9 @@ import (
 	dashboard "github.com/aclisp/godashboard/proto"
 )
 
-var logger *logrus.Logger
+var logger = backend.Logger
 
 func init() {
-	logger = backend.Logger
 	// Should only be done from init functions
 	grpclog.SetLoggerV2(grpclog.NewLoggerV2(logger.Out, ioutil.Discard, ioutil.Discard))
 	// for pprof and trace

@@ -10,16 +10,11 @@ import (
 	"strings"
 
 	"github.com/aclisp/godashboard/backend"
-	"github.com/sirupsen/logrus"
 )
 
 var Assets = WasmServeDir{http.Dir("frontend/html/")}
 
-var logger *logrus.Logger
-
-func init() {
-	logger = backend.Logger
-}
+var logger = backend.Logger
 
 type WasmServeDir struct {
 	http.Dir

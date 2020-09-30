@@ -8,6 +8,7 @@ import (
 
 // Logger is the backend logger
 var Logger *logrus.Logger
+var logger = Logger
 
 func init() {
 	Logger = logrus.StandardLogger()

@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"syscall/js"
 
+	_ "google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/grpclog"
 	"google.golang.org/grpc/status"
@@ -54,14 +55,23 @@ func main() {
 		return
 	}
 	client := dashboard.NewBackendClient(cc)
-	resp, err := client.Ping(context.Background(), &dashboard.Hello{
-		Message: "I am Jenny!",
+
+	// example backend communication
+	pingBackend(client, "Hello-World")
+	// example backend communication for error handling
+	pingBackend(client, "Expect-Error")
+
+	grpclog.Println("finished")
+}
+
+func pingBackend(c dashboard.BackendClient, message string) {
+	resp, err := c.Ping(context.Background(), &dashboard.Hello{
+		Message: message,
 	})
 	if err != nil {
 		st := status.Convert(err)
 		grpclog.Println(st.Code(), st.Message(), st.Details())
-	} else {
-		grpclog.Println(resp)
+		return
 	}
-	grpclog.Println("finished")
+	grpclog.Println(resp)
 }
