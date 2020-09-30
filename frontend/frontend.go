@@ -3,13 +3,16 @@ package main
 import (
 	"context"
 	"io/ioutil"
+	"os"
 	"syscall/js"
 
+	"github.com/hexops/vecty"
 	_ "google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/grpclog"
 	"google.golang.org/grpc/status"
 
+	"github.com/aclisp/godashboard/frontend/v"
 	dashboard "github.com/aclisp/godashboard/proto"
 )
 
@@ -35,9 +38,7 @@ func (d DivWriter) Write(p []byte) (n int, err error) {
 }
 
 func init() {
-	document = js.Global().Get("document")
-	div := document.Call("getElementById", "target")
-	grpclog.SetLoggerV2(grpclog.NewLoggerV2(DivWriter(div), ioutil.Discard, ioutil.Discard))
+	grpclog.SetLoggerV2(grpclog.NewLoggerV2(os.Stdout, ioutil.Discard, ioutil.Discard))
 }
 
 func removeContentLoadingIndicator() {
@@ -62,6 +63,9 @@ func main() {
 	pingBackend(client, "Expect-Error")
 
 	grpclog.Println("finished")
+
+	vecty.SetTitle("Hello Vecty!")
+	vecty.RenderBody(&v.Body{})
 }
 
 func pingBackend(c dashboard.BackendClient, message string) {
