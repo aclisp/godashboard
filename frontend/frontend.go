@@ -16,6 +16,8 @@ import (
 	dashboard "github.com/aclisp/godashboard/proto"
 )
 
+//go:generate bash -c "./jsbundle.sh"
+
 // Build with Go WASM fork
 
 //go:generate bash -c "GOOS=js GOARCH=wasm go build -o ./html/main.wasm frontend.go"
@@ -64,8 +66,10 @@ func main() {
 
 	grpclog.Println("finished")
 
-	vecty.SetTitle("Hello Vecty!")
-	vecty.RenderBody(&v.Body{})
+	if err := vecty.RenderInto("body", &v.Body{}); err != nil {
+		panic(err)
+	}
+	select {} // run Go forever
 }
 
 func pingBackend(c dashboard.BackendClient, message string) {
