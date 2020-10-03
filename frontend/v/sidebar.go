@@ -3,7 +3,9 @@ package v
 import (
 	"github.com/hexops/vecty"
 	"github.com/hexops/vecty/elem"
+	"github.com/hexops/vecty/event"
 	"github.com/hexops/vecty/prop"
+	router "marwan.io/vecty-router"
 )
 
 // Sidebar is the main page side bar
@@ -39,8 +41,8 @@ func (b *Sidebar) Render() vecty.ComponentOrHTML {
 				{
 					text: "Custom Components:",
 					items: []sidebarEntry{
-						{text: "Buttons", href: "buttons.html"},
-						{text: "Cards", href: "cards.html"},
+						{text: "Buttons", route: "buttons.html"},
+						{text: "Cards", route: "cards.html"},
 					},
 				},
 			},
@@ -55,10 +57,10 @@ func (b *Sidebar) Render() vecty.ComponentOrHTML {
 				{
 					text: "Custom Utilities:",
 					items: []sidebarEntry{
-						{text: "Colors", href: "utilities-color.html"},
-						{text: "Borders", href: "utilities-border.html"},
-						{text: "Animations", href: "utilities-animation.html"},
-						{text: "Other", href: "utilities-other.html"},
+						{text: "Colors", route: "utilities-color.html"},
+						{text: "Borders", route: "utilities-border.html"},
+						{text: "Animations", route: "utilities-animation.html"},
+						{text: "Other", route: "utilities-other.html"},
 					},
 				},
 			},
@@ -77,16 +79,16 @@ func (b *Sidebar) Render() vecty.ComponentOrHTML {
 				{
 					text: "Login Screens:",
 					items: []sidebarEntry{
-						{text: "Login", href: "login.html"},
-						{text: "Register", href: "register.html"},
-						{text: "Forgot Password", href: "forgot-password.html"},
+						{text: "Login", route: "login.html"},
+						{text: "Register", route: "register.html"},
+						{text: "Forgot Password", route: "forgot-password.html"},
 					},
 				},
 				{
 					text: "Other Pages:",
 					items: []sidebarEntry{
-						{text: "404 Page", href: "404.html"},
-						{text: "Blank Page", href: "blank.html"},
+						{text: "404 Page", route: "404"},
+						{text: "Blank Page", route: "blank"},
 					},
 				},
 			},
@@ -94,7 +96,7 @@ func (b *Sidebar) Render() vecty.ComponentOrHTML {
 		// Nav Item - Charts
 		b.renderItem("fa-chart-area", "Charts", "charts.html"),
 		// Nav Item - Tables
-		b.renderItem("fa-table", "Tables", "tables.html"),
+		b.renderItem("fa-table", "Tables", "table"),
 		// Divider
 		b.renderDivider("d-none", "d-md-block"),
 		// Sidebar Toggler (Sidebar)
@@ -129,15 +131,8 @@ func (b *Sidebar) renderDivider(class ...string) *vecty.HTML {
 
 func (b *Sidebar) renderNavItemDashboard() *vecty.HTML {
 	return elem.ListItem(
-		vecty.Markup(vecty.Class("nav-item", "active")),
-		elem.Anchor(
-			vecty.Markup(
-				vecty.Class("nav-link"),
-				prop.Href("index.html"),
-			),
-			elem.Italic(vecty.Markup(vecty.Class("fas", "fa-fw", "fa-tachometer-alt"))),
-			elem.Span(vecty.Text("Dashboard")),
-		),
+		vecty.Markup(vecty.Class("nav-item")),
+		b.navLink("fa-tachometer-alt", "Dashboard", "/"),
 	)
 }
 
@@ -148,14 +143,10 @@ func (b *Sidebar) renderHeading(text string) *vecty.HTML {
 	)
 }
 
-func (b *Sidebar) renderItem(icon, text, href string) *vecty.HTML {
+func (b *Sidebar) renderItem(icon, text, route string) *vecty.HTML {
 	return elem.ListItem(
 		vecty.Markup(vecty.Class("nav-item")),
-		elem.Anchor(
-			vecty.Markup(vecty.Class("nav-link"), prop.Href(href)),
-			elem.Italic(vecty.Markup(vecty.Class("fas", "fa-fw", icon))),
-			elem.Span(vecty.Text(text)),
-		),
+		b.navLink(icon, text, route),
 	)
 }
 
@@ -168,5 +159,19 @@ func (b *Sidebar) renderToggler() *vecty.HTML {
 				prop.ID("sidebarToggle"),
 			),
 		),
+	)
+}
+
+func (b *Sidebar) navLink(icon, text, route string) *vecty.HTML {
+	return elem.Anchor(
+		vecty.Markup(
+			vecty.Class("nav-link"),
+			prop.Href(route),
+			event.Click(func(e *vecty.Event) {
+				router.Redirect(route)
+			}).PreventDefault(),
+		),
+		elem.Italic(vecty.Markup(vecty.Class("fas", "fa-fw", icon))),
+		elem.Span(vecty.Text(text)),
 	)
 }

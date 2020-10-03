@@ -3,7 +3,9 @@ package v
 import (
 	"github.com/hexops/vecty"
 	"github.com/hexops/vecty/elem"
+	"github.com/hexops/vecty/event"
 	"github.com/hexops/vecty/prop"
+	router "marwan.io/vecty-router"
 )
 
 // SidebarMenu is the menu inside the main page side bar
@@ -23,8 +25,8 @@ type sidebarGroup struct {
 }
 
 type sidebarEntry struct {
-	text string
-	href string
+	text  string
+	route string
 }
 
 // Render a side bar item
@@ -75,10 +77,14 @@ func (m *SidebarMenu) renderGroup(group sidebarGroup, index int) vecty.List {
 		vecty.Text(group.text),
 	))
 	for _, item := range group.items {
+		item := item
 		list = append(list, elem.Anchor(
 			vecty.Markup(
 				vecty.Class("collapse-item"),
-				prop.Href(item.href),
+				prop.Href(item.route),
+				event.Click(func(e *vecty.Event) {
+					router.Redirect(item.route)
+				}).PreventDefault(),
 			),
 			vecty.Text(item.text),
 		))
