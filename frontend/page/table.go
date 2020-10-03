@@ -2,6 +2,7 @@ package page
 
 import (
 	"strconv"
+	"syscall/js"
 
 	"github.com/hexops/vecty"
 	"github.com/hexops/vecty/elem"
@@ -29,6 +30,13 @@ func (table *TableView) Render() vecty.ComponentOrHTML {
 		// DataTales Example
 		table.renderTableContainer(),
 	)
+}
+
+// Mount is when the table is mounted
+func (table *TableView) Mount() {
+	if js.Global().Get("jQuery").Truthy() {
+		js.Global().Call("eval", `$('#dataTable').DataTable();`)
+	}
 }
 
 func (table *TableView) renderTableContainer() *vecty.HTML {
