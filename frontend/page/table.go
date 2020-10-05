@@ -32,7 +32,7 @@ func (table *TableView) Render() vecty.ComponentOrHTML {
 	)
 }
 
-// Mount is when the table is mounted
+// Mount is called when the table is mounted
 func (table *TableView) Mount() {
 	if js.Global().Get("jQuery").Truthy() {
 		js.Global().Call("eval", `$('#dataTable').DataTable();`)

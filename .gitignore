@@ -20,3 +20,4 @@ godashboard
 .DS_Store
 frontend/bundle/bundle.go
 frontend/html/*.wasm
+tools/vectify/vectify
