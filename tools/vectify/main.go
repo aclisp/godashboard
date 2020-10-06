@@ -9,7 +9,6 @@ import (
 	"strings"
 
 	"golang.org/x/net/html"
-	"golang.org/x/net/html/atom"
 )
 
 func main() {
@@ -31,23 +30,10 @@ func main() {
 }
 
 func processHTMLNode(n *html.Node, nesting int) {
-	// filter
-	if n.Type == html.TextNode {
-		if strings.TrimSpace(n.Data) == "" {
-			processNestingHTMLNode(n, nesting)
-			return
-		}
-	}
-	if n.Type == html.DocumentNode {
+	// ignore document, <html>, <head> and <body>
+	if nesting < 3 && (n.Type == html.DocumentNode || n.Type == html.ElementNode) {
 		processNestingHTMLNode(n, nesting)
 		return
-	}
-	if n.Type == html.ElementNode {
-		switch n.DataAtom {
-		case atom.Html, atom.Head, atom.Body:
-			processNestingHTMLNode(n, nesting)
-			return
-		}
 	}
 
 	// output
@@ -74,6 +60,7 @@ func indent(nesting int) string {
 		b.WriteByte(' ')
 	}
 	indent := b.String()
+	// remove extra indents
 	if len(indent) >= 6 {
 		indent = indent[6:]
 	}
@@ -84,7 +71,9 @@ func outputHTMLNode(n *html.Node, nesting int) {
 	indent := indent(nesting)
 
 	if n.Type == html.CommentNode {
-		fmt.Printf("%s// %s\n", indent, strings.TrimSpace(n.Data))
+		if text := strings.TrimSpace(n.Data); text != "" {
+			fmt.Printf("%s// %s\n", indent, text)
+		}
 		return
 	}
 
@@ -94,7 +83,9 @@ func outputHTMLNode(n *html.Node, nesting int) {
 	}
 
 	if n.Type == html.TextNode {
-		fmt.Printf("%svecty.Text(\"%s\"),\n", indent, strings.TrimSpace(n.Data))
+		if text := strings.TrimSpace(n.Data); text != "" {
+			fmt.Printf("%svecty.Text(\"%s\"),\n", indent, text)
+		}
 		return
 	}
 
@@ -123,30 +114,75 @@ func outputHTMLElement(n *html.Node, indent string) {
 }
 
 func elemName(n *html.Node) string {
-	switch tag := n.DataAtom; tag {
-	case atom.Li:
-		return "ListItem"
-	case atom.A:
-		return "Anchor"
-	case atom.I:
-		return "Italic"
-	case atom.Img:
-		return "Image"
-	case atom.H1:
-		return "Heading1"
-	case atom.H2:
-		return "Heading2"
-	case atom.H3:
-		return "Heading3"
-	case atom.H4:
-		return "Heading4"
-	case atom.H5:
-		return "Heading5"
-	case atom.H6:
-		return "Heading6"
-	default:
-		return strings.Title(tag.String())
+	var elemNameMap = map[string]string{
+		"a":          "Anchor",
+		"abbr":       "Abbreviation",
+		"b":          "Bold",
+		"bdi":        "BidirectionalIsolation",
+		"bdo":        "BidirectionalOverride",
+		"blockquote": "BlockQuote",
+		"br":         "Break",
+		"cite":       "Citation",
+		"col":        "Column",
+		"colgroup":   "ColumnGroup",
+		"datalist":   "DataList",
+		"dd":         "Description",
+		"del":        "DeletedText",
+		"dfn":        "Definition",
+		"dl":         "DescriptionList",
+		"dt":         "DefinitionTerm",
+		"em":         "Emphasis",
+		"fieldset":   "FieldSet",
+		"figcaption": "FigureCaption",
+		"h1":         "Heading1",
+		"h2":         "Heading2",
+		"h3":         "Heading3",
+		"h4":         "Heading4",
+		"h5":         "Heading5",
+		"h6":         "Heading6",
+		"hgroup":     "HeadingsGroup",
+		"hr":         "HorizontalRule",
+		"i":          "Italic",
+		"iframe":     "InlineFrame",
+		"img":        "Image",
+		"ins":        "InsertedText",
+		"kbd":        "KeyboardInput",
+		"li":         "ListItem",
+		"menuitem":   "MenuItem",
+		"nav":        "Navigation",
+		"noframes":   "NoFrames",
+		"noscript":   "NoScript",
+		"ol":         "OrderedList",
+		"optgroup":   "OptionsGroup",
+		"p":          "Paragraph",
+		"param":      "Parameter",
+		"pre":        "Preformatted",
+		"q":          "Quote",
+		"rp":         "RubyParenthesis",
+		"rt":         "RubyText",
+		"rtc":        "RubyTextContainer",
+		"s":          "Strikethrough",
+		"samp":       "Sample",
+		"sub":        "Subscript",
+		"sup":        "Superscript",
+		"tbody":      "TableBody",
+		"textarea":   "TextArea",
+		"td":         "TableData",
+		"tfoot":      "TableFoot",
+		"th":         "TableHeader",
+		"thead":      "TableHead",
+		"tr":         "TableRow",
+		"u":          "Underline",
+		"ul":         "UnorderedList",
+		"var":        "Variable",
+		"wbr":        "WordBreakOpportunity",
 	}
+	tagName := n.DataAtom.String()
+	funName := elemNameMap[tagName]
+	if funName == "" {
+		funName = strings.Title(tagName)
+	}
+	return funName
 }
 
 func attrCode(key, value string) string {
