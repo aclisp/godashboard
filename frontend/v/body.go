@@ -43,7 +43,7 @@ func (b *Body) Render() vecty.ComponentOrHTML {
 		// Logout Modal
 		b.renderLogoutModal(),
 		// Run JavaScript
-		elem.Script(vecty.Markup(prop.Src("jsbundle/godashboard.bundle.js"))),
+		elem.Script(vecty.Markup(prop.Src("/jsbundle/godashboard.bundle.js"))),
 	)
 }
 
@@ -119,7 +119,7 @@ func (b *Body) renderLogoutModal() *vecty.HTML {
 					elem.Anchor(
 						vecty.Markup(
 							vecty.Class("btn", "btn-primary"),
-							prop.Href("login.html"),
+							prop.Href("/login.html"),
 						),
 						vecty.Text("Logout"),
 					),

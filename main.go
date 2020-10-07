@@ -49,8 +49,9 @@ func main() {
 	}
 	router := mux.NewRouter()
 	// Page Routes
-	router.HandleFunc("/table", indexHandler)
 	router.HandleFunc("/blank", indexHandler)
+	router.HandleFunc("/tables", indexHandler)
+	router.HandleFunc("/dv/{package}/{endpoint}", indexHandler)
 
 	router.PathPrefix("/debug/").Handler(http.DefaultServeMux)
 	router.PathPrefix("/").Handler(http.HandlerFunc(handler))

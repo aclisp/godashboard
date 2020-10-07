@@ -6,6 +6,9 @@ import (
 	"github.com/hexops/vecty/event"
 	"github.com/hexops/vecty/prop"
 	router "marwan.io/vecty-router"
+
+	"github.com/aclisp/godashboard/frontend/s"
+	dashboard "github.com/aclisp/godashboard/proto"
 )
 
 // Sidebar is the main page side bar
@@ -16,6 +19,15 @@ type Sidebar struct {
 // Render a side bar
 func (b *Sidebar) Render() vecty.ComponentOrHTML {
 	id := "accordionSidebar"
+
+	ifaces := make(vecty.List, len(s.SidebarMenus))
+	for i := range ifaces {
+		ifaces[i] = &SidebarMenu{
+			parent: id,
+			data:   s.SidebarMenus[i],
+		}
+	}
+
 	return elem.UnorderedList(
 		vecty.Markup(
 			prop.ID(id),
@@ -31,72 +43,31 @@ func (b *Sidebar) Render() vecty.ComponentOrHTML {
 		b.renderDivider(),
 		// Heading
 		b.renderHeading("Interface"),
-		// Nav Item - Pages Collapse Menu
-		&SidebarMenu{
-			parent: id,
-			id:     "collapseTwo",
-			icon:   "fa-cog",
-			text:   "Components",
-			groups: []sidebarGroup{
-				{
-					text: "Custom Components:",
-					items: []sidebarEntry{
-						{text: "Buttons", route: "buttons.html"},
-						{text: "Cards", route: "cards.html"},
-					},
-				},
-			},
-		},
-		// Nav Item - Utilities Collapse Menu
-		&SidebarMenu{
-			parent: id,
-			id:     "collapseUtilities",
-			icon:   "fa-wrench",
-			text:   "Utilities",
-			groups: []sidebarGroup{
-				{
-					text: "Custom Utilities:",
-					items: []sidebarEntry{
-						{text: "Colors", route: "utilities-color.html"},
-						{text: "Borders", route: "utilities-border.html"},
-						{text: "Animations", route: "utilities-animation.html"},
-						{text: "Other", route: "utilities-other.html"},
-					},
-				},
-			},
-		},
+		// Nav Item - Menu
+		ifaces,
 		// Divider
 		b.renderDivider(),
 		// Heading
 		b.renderHeading("Addons"),
-		// Nav Item - Pages Collapse Menu
 		&SidebarMenu{
 			parent: id,
-			id:     "collapsePages",
-			icon:   "fa-folder",
-			text:   "Pages",
-			groups: []sidebarGroup{
-				{
-					text: "Login Screens:",
-					items: []sidebarEntry{
-						{text: "Login", route: "login.html"},
-						{text: "Register", route: "register.html"},
-						{text: "Forgot Password", route: "forgot-password.html"},
-					},
-				},
-				{
-					text: "Other Pages:",
-					items: []sidebarEntry{
-						{text: "404 Page", route: "404"},
-						{text: "Blank Page", route: "blank"},
+			data: &dashboard.SidebarMenu{
+				Id:     "site-settings",
+				FaIcon: "fa-cog",
+				Text:   "设置",
+				Groups: []*dashboard.SidebarGroup{
+					{
+						Items: []*dashboard.SidebarEntry{
+							{Text: "导航栏菜单管理", Route: "/sidebar-menus"},
+						},
 					},
 				},
 			},
 		},
 		// Nav Item - Charts
-		b.renderItem("fa-chart-area", "Charts", "charts.html"),
+		b.renderItem("fa-chart-area", "Charts", "/charts"),
 		// Nav Item - Tables
-		b.renderItem("fa-table", "Tables", "table"),
+		b.renderItem("fa-table", "Tables", "/tables"),
 		// Divider
 		b.renderDivider("d-none", "d-md-block"),
 		// Sidebar Toggler (Sidebar)
@@ -108,7 +79,7 @@ func (b *Sidebar) renderBrand() *vecty.HTML {
 	return elem.Anchor(
 		vecty.Markup(
 			vecty.Class("sidebar-brand", "d-flex", "align-items-center", "justify-content-center"),
-			prop.Href("index.html"),
+			prop.Href("/index.html"),
 		),
 		elem.Div(
 			vecty.Markup(vecty.Class("sidebar-brand-icon", "rotate-n-15")),

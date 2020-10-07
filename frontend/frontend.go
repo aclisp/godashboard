@@ -1,19 +1,16 @@
 package main
 
 import (
-	"context"
 	"io/ioutil"
 	"os"
 	"syscall/js"
 
 	"github.com/hexops/vecty"
 	_ "google.golang.org/genproto/googleapis/rpc/errdetails"
-	"google.golang.org/grpc"
 	"google.golang.org/grpc/grpclog"
-	"google.golang.org/grpc/status"
 
+	"github.com/aclisp/godashboard/frontend/s"
 	"github.com/aclisp/godashboard/frontend/v"
-	dashboard "github.com/aclisp/godashboard/proto"
 )
 
 //go:generate bash -c "./jsbundle.sh"
@@ -51,35 +48,9 @@ func removeContentLoadingIndicator() {
 
 func main() {
 	removeContentLoadingIndicator()
-
-	cc, err := grpc.Dial("")
-	if err != nil {
-		grpclog.Println(err)
-		return
-	}
-	client := dashboard.NewBackendClient(cc)
-
-	// example backend communication
-	pingBackend(client, "Hello-World")
-	// example backend communication for error handling
-	pingBackend(client, "Expect-Error")
-
-	grpclog.Println("finished")
-
+	s.Init()
 	if err := vecty.RenderInto("body", &v.Body{}); err != nil {
 		panic(err)
 	}
 	select {} // run Go forever
-}
-
-func pingBackend(c dashboard.BackendClient, message string) {
-	resp, err := c.Ping(context.Background(), &dashboard.Hello{
-		Message: message,
-	})
-	if err != nil {
-		st := status.Convert(err)
-		grpclog.Println(st.Code(), st.Message(), st.Details())
-		return
-	}
-	grpclog.Println(resp)
 }

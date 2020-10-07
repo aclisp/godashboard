@@ -104,24 +104,268 @@ func (m *Pong) GetReply() string {
 	return ""
 }
 
+type SidebarMenu struct {
+	Id                   string          `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	FaIcon               string          `protobuf:"bytes,2,opt,name=fa_icon,json=faIcon,proto3" json:"fa_icon,omitempty"`
+	Text                 string          `protobuf:"bytes,3,opt,name=text,proto3" json:"text,omitempty"`
+	Groups               []*SidebarGroup `protobuf:"bytes,4,rep,name=groups,proto3" json:"groups,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
+	XXX_unrecognized     []byte          `json:"-"`
+	XXX_sizecache        int32           `json:"-"`
+}
+
+func (m *SidebarMenu) Reset()         { *m = SidebarMenu{} }
+func (m *SidebarMenu) String() string { return proto.CompactTextString(m) }
+func (*SidebarMenu) ProtoMessage()    {}
+func (*SidebarMenu) Descriptor() ([]byte, []int) {
+	return fileDescriptor_9b97678da3a35dfb, []int{2}
+}
+
+func (m *SidebarMenu) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SidebarMenu.Unmarshal(m, b)
+}
+func (m *SidebarMenu) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SidebarMenu.Marshal(b, m, deterministic)
+}
+func (m *SidebarMenu) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SidebarMenu.Merge(m, src)
+}
+func (m *SidebarMenu) XXX_Size() int {
+	return xxx_messageInfo_SidebarMenu.Size(m)
+}
+func (m *SidebarMenu) XXX_DiscardUnknown() {
+	xxx_messageInfo_SidebarMenu.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SidebarMenu proto.InternalMessageInfo
+
+func (m *SidebarMenu) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *SidebarMenu) GetFaIcon() string {
+	if m != nil {
+		return m.FaIcon
+	}
+	return ""
+}
+
+func (m *SidebarMenu) GetText() string {
+	if m != nil {
+		return m.Text
+	}
+	return ""
+}
+
+func (m *SidebarMenu) GetGroups() []*SidebarGroup {
+	if m != nil {
+		return m.Groups
+	}
+	return nil
+}
+
+type SidebarGroup struct {
+	Text                 string          `protobuf:"bytes,1,opt,name=text,proto3" json:"text,omitempty"`
+	Items                []*SidebarEntry `protobuf:"bytes,2,rep,name=items,proto3" json:"items,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
+	XXX_unrecognized     []byte          `json:"-"`
+	XXX_sizecache        int32           `json:"-"`
+}
+
+func (m *SidebarGroup) Reset()         { *m = SidebarGroup{} }
+func (m *SidebarGroup) String() string { return proto.CompactTextString(m) }
+func (*SidebarGroup) ProtoMessage()    {}
+func (*SidebarGroup) Descriptor() ([]byte, []int) {
+	return fileDescriptor_9b97678da3a35dfb, []int{3}
+}
+
+func (m *SidebarGroup) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SidebarGroup.Unmarshal(m, b)
+}
+func (m *SidebarGroup) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SidebarGroup.Marshal(b, m, deterministic)
+}
+func (m *SidebarGroup) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SidebarGroup.Merge(m, src)
+}
+func (m *SidebarGroup) XXX_Size() int {
+	return xxx_messageInfo_SidebarGroup.Size(m)
+}
+func (m *SidebarGroup) XXX_DiscardUnknown() {
+	xxx_messageInfo_SidebarGroup.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SidebarGroup proto.InternalMessageInfo
+
+func (m *SidebarGroup) GetText() string {
+	if m != nil {
+		return m.Text
+	}
+	return ""
+}
+
+func (m *SidebarGroup) GetItems() []*SidebarEntry {
+	if m != nil {
+		return m.Items
+	}
+	return nil
+}
+
+type SidebarEntry struct {
+	Text                 string   `protobuf:"bytes,1,opt,name=text,proto3" json:"text,omitempty"`
+	Route                string   `protobuf:"bytes,2,opt,name=route,proto3" json:"route,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *SidebarEntry) Reset()         { *m = SidebarEntry{} }
+func (m *SidebarEntry) String() string { return proto.CompactTextString(m) }
+func (*SidebarEntry) ProtoMessage()    {}
+func (*SidebarEntry) Descriptor() ([]byte, []int) {
+	return fileDescriptor_9b97678da3a35dfb, []int{4}
+}
+
+func (m *SidebarEntry) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SidebarEntry.Unmarshal(m, b)
+}
+func (m *SidebarEntry) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SidebarEntry.Marshal(b, m, deterministic)
+}
+func (m *SidebarEntry) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SidebarEntry.Merge(m, src)
+}
+func (m *SidebarEntry) XXX_Size() int {
+	return xxx_messageInfo_SidebarEntry.Size(m)
+}
+func (m *SidebarEntry) XXX_DiscardUnknown() {
+	xxx_messageInfo_SidebarEntry.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SidebarEntry proto.InternalMessageInfo
+
+func (m *SidebarEntry) GetText() string {
+	if m != nil {
+		return m.Text
+	}
+	return ""
+}
+
+func (m *SidebarEntry) GetRoute() string {
+	if m != nil {
+		return m.Route
+	}
+	return ""
+}
+
+type GetSidebarMenusReq struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetSidebarMenusReq) Reset()         { *m = GetSidebarMenusReq{} }
+func (m *GetSidebarMenusReq) String() string { return proto.CompactTextString(m) }
+func (*GetSidebarMenusReq) ProtoMessage()    {}
+func (*GetSidebarMenusReq) Descriptor() ([]byte, []int) {
+	return fileDescriptor_9b97678da3a35dfb, []int{5}
+}
+
+func (m *GetSidebarMenusReq) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetSidebarMenusReq.Unmarshal(m, b)
+}
+func (m *GetSidebarMenusReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetSidebarMenusReq.Marshal(b, m, deterministic)
+}
+func (m *GetSidebarMenusReq) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetSidebarMenusReq.Merge(m, src)
+}
+func (m *GetSidebarMenusReq) XXX_Size() int {
+	return xxx_messageInfo_GetSidebarMenusReq.Size(m)
+}
+func (m *GetSidebarMenusReq) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetSidebarMenusReq.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetSidebarMenusReq proto.InternalMessageInfo
+
+type GetSidebarMenusRes struct {
+	Menus                []*SidebarMenu `protobuf:"bytes,1,rep,name=menus,proto3" json:"menus,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
+	XXX_unrecognized     []byte         `json:"-"`
+	XXX_sizecache        int32          `json:"-"`
+}
+
+func (m *GetSidebarMenusRes) Reset()         { *m = GetSidebarMenusRes{} }
+func (m *GetSidebarMenusRes) String() string { return proto.CompactTextString(m) }
+func (*GetSidebarMenusRes) ProtoMessage()    {}
+func (*GetSidebarMenusRes) Descriptor() ([]byte, []int) {
+	return fileDescriptor_9b97678da3a35dfb, []int{6}
+}
+
+func (m *GetSidebarMenusRes) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetSidebarMenusRes.Unmarshal(m, b)
+}
+func (m *GetSidebarMenusRes) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetSidebarMenusRes.Marshal(b, m, deterministic)
+}
+func (m *GetSidebarMenusRes) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetSidebarMenusRes.Merge(m, src)
+}
+func (m *GetSidebarMenusRes) XXX_Size() int {
+	return xxx_messageInfo_GetSidebarMenusRes.Size(m)
+}
+func (m *GetSidebarMenusRes) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetSidebarMenusRes.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetSidebarMenusRes proto.InternalMessageInfo
+
+func (m *GetSidebarMenusRes) GetMenus() []*SidebarMenu {
+	if m != nil {
+		return m.Menus
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*Hello)(nil), "dashboard.Hello")
 	proto.RegisterType((*Pong)(nil), "dashboard.Pong")
+	proto.RegisterType((*SidebarMenu)(nil), "dashboard.SidebarMenu")
+	proto.RegisterType((*SidebarGroup)(nil), "dashboard.SidebarGroup")
+	proto.RegisterType((*SidebarEntry)(nil), "dashboard.SidebarEntry")
+	proto.RegisterType((*GetSidebarMenusReq)(nil), "dashboard.GetSidebarMenusReq")
+	proto.RegisterType((*GetSidebarMenusRes)(nil), "dashboard.GetSidebarMenusRes")
 }
 
 func init() { proto.RegisterFile("dashboard.proto", fileDescriptor_9b97678da3a35dfb) }
 
 var fileDescriptor_9b97678da3a35dfb = []byte{
-	// 137 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x4f, 0x49, 0x2c, 0xce,
-	0x48, 0xca, 0x4f, 0x2c, 0x4a, 0xd1, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0xe2, 0x84, 0x0b, 0x28,
-	0x29, 0x72, 0xb1, 0x7a, 0xa4, 0xe6, 0xe4, 0xe4, 0x0b, 0x49, 0x70, 0xb1, 0xe7, 0xa6, 0x16, 0x17,
-	0x27, 0xa6, 0xa7, 0x4a, 0x30, 0x2a, 0x30, 0x6a, 0x70, 0x06, 0xc1, 0xb8, 0x4a, 0x32, 0x5c, 0x2c,
-	0x01, 0xf9, 0x79, 0xe9, 0x42, 0x22, 0x5c, 0xac, 0x45, 0xa9, 0x05, 0x39, 0x95, 0x50, 0x79, 0x08,
-	0xc7, 0xc8, 0x84, 0x8b, 0xdd, 0x29, 0x31, 0x39, 0x3b, 0x35, 0x2f, 0x45, 0x48, 0x93, 0x8b, 0x25,
-	0x20, 0x33, 0x2f, 0x5d, 0x48, 0x40, 0x0f, 0x61, 0x21, 0xd8, 0x70, 0x29, 0x7e, 0x24, 0x11, 0x90,
-	0x59, 0x4e, 0xdc, 0x51, 0x08, 0x37, 0x24, 0xb1, 0x81, 0x5d, 0x65, 0x0c, 0x08, 0x00, 0x00, 0xff,
-	0xff, 0xd8, 0xf9, 0xa2, 0x3d, 0xa8, 0x00, 0x00, 0x00,
+	// 321 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x7c, 0x52, 0x41, 0x4f, 0xf2, 0x40,
+	0x10, 0x4d, 0x4b, 0x0b, 0x61, 0xf8, 0xf2, 0x61, 0x26, 0x44, 0x36, 0x44, 0x13, 0xdc, 0x13, 0x26,
+	0x8a, 0x09, 0x5e, 0x3c, 0x93, 0x18, 0xf4, 0x60, 0xc4, 0x7a, 0xf3, 0x62, 0x16, 0x3a, 0xd4, 0x46,
+	0xd8, 0xc5, 0xee, 0x92, 0x48, 0x3c, 0xfb, 0xbf, 0x4d, 0xb7, 0x15, 0x36, 0x82, 0xde, 0x66, 0xde,
+	0xbc, 0x7d, 0xf3, 0x76, 0x66, 0xa0, 0x19, 0x0b, 0xfd, 0x32, 0x51, 0x22, 0x8b, 0xfb, 0xcb, 0x4c,
+	0x19, 0x85, 0xf5, 0x0d, 0xc0, 0x4f, 0x20, 0xbc, 0xa1, 0xf9, 0x5c, 0x21, 0x83, 0xda, 0x82, 0xb4,
+	0x16, 0x09, 0x31, 0xaf, 0xeb, 0xf5, 0xea, 0xd1, 0x77, 0xca, 0x8f, 0x20, 0x18, 0x2b, 0x99, 0x60,
+	0x0b, 0xc2, 0x8c, 0x96, 0xf3, 0x75, 0x59, 0x2f, 0x12, 0xfe, 0x01, 0x8d, 0xc7, 0x34, 0xa6, 0x89,
+	0xc8, 0xee, 0x48, 0xae, 0xf0, 0x3f, 0xf8, 0x69, 0x5c, 0x32, 0xfc, 0x34, 0xc6, 0x36, 0xd4, 0x66,
+	0xe2, 0x39, 0x9d, 0x2a, 0xc9, 0x7c, 0x0b, 0x56, 0x67, 0xe2, 0x76, 0xaa, 0x24, 0x22, 0x04, 0x86,
+	0xde, 0x0d, 0xab, 0x58, 0xd4, 0xc6, 0x78, 0x01, 0xd5, 0x24, 0x53, 0xab, 0xa5, 0x66, 0x41, 0xb7,
+	0xd2, 0x6b, 0x0c, 0xda, 0xfd, 0xad, 0xf3, 0xb2, 0xc9, 0x28, 0xaf, 0x47, 0x25, 0x8d, 0x3f, 0xc0,
+	0x3f, 0x17, 0xdf, 0x88, 0x7a, 0x8e, 0xe8, 0x39, 0x84, 0xa9, 0xa1, 0x85, 0x66, 0xfe, 0x6f, 0x9a,
+	0xd7, 0xd2, 0x64, 0xeb, 0xa8, 0x60, 0xf1, 0xab, 0x8d, 0xa4, 0x85, 0xf7, 0x4a, 0xe6, 0x93, 0x50,
+	0x2b, 0x43, 0xe5, 0x97, 0x8a, 0x84, 0xb7, 0x00, 0x47, 0x64, 0x9c, 0x61, 0xe8, 0x88, 0xde, 0xf8,
+	0x70, 0x0f, 0xaa, 0xf1, 0x0c, 0xc2, 0x45, 0x1e, 0x33, 0xcf, 0x9a, 0x3a, 0xdc, 0x35, 0x95, 0x53,
+	0xa3, 0x82, 0x34, 0xf8, 0xf4, 0xa0, 0x36, 0x14, 0xd3, 0x57, 0x92, 0x31, 0x9e, 0x42, 0x30, 0x4e,
+	0x65, 0x82, 0x07, 0xce, 0x13, 0xbb, 0xc1, 0x4e, 0xd3, 0x41, 0xec, 0xc2, 0xee, 0xa1, 0xf9, 0xa3,
+	0x35, 0x1e, 0x3b, 0x9c, 0x5d, 0xb3, 0x9d, 0x3f, 0xcb, 0x7a, 0xd8, 0x78, 0xda, 0x5e, 0xce, 0xa4,
+	0x6a, 0x6f, 0xe9, 0xf2, 0x2b, 0x00, 0x00, 0xff, 0xff, 0x0e, 0xdc, 0x5d, 0xe4, 0x5e, 0x02, 0x00,
+	0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -137,6 +381,7 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type BackendClient interface {
 	Ping(ctx context.Context, in *Hello, opts ...grpc.CallOption) (*Pong, error)
+	GetSidebarMenus(ctx context.Context, in *GetSidebarMenusReq, opts ...grpc.CallOption) (*GetSidebarMenusRes, error)
 }
 
 type backendClient struct {
@@ -156,9 +401,19 @@ func (c *backendClient) Ping(ctx context.Context, in *Hello, opts ...grpc.CallOp
 	return out, nil
 }
 
+func (c *backendClient) GetSidebarMenus(ctx context.Context, in *GetSidebarMenusReq, opts ...grpc.CallOption) (*GetSidebarMenusRes, error) {
+	out := new(GetSidebarMenusRes)
+	err := c.cc.Invoke(ctx, "/dashboard.Backend/GetSidebarMenus", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // BackendServer is the server API for Backend service.
 type BackendServer interface {
 	Ping(context.Context, *Hello) (*Pong, error)
+	GetSidebarMenus(context.Context, *GetSidebarMenusReq) (*GetSidebarMenusRes, error)
 }
 
 // UnimplementedBackendServer can be embedded to have forward compatible implementations.
@@ -167,6 +422,9 @@ type UnimplementedBackendServer struct {
 
 func (*UnimplementedBackendServer) Ping(ctx context.Context, req *Hello) (*Pong, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Ping not implemented")
+}
+func (*UnimplementedBackendServer) GetSidebarMenus(ctx context.Context, req *GetSidebarMenusReq) (*GetSidebarMenusRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSidebarMenus not implemented")
 }
 
 func RegisterBackendServer(s *grpc.Server, srv BackendServer) {
@@ -191,6 +449,24 @@ func _Backend_Ping_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Backend_GetSidebarMenus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetSidebarMenusReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BackendServer).GetSidebarMenus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/dashboard.Backend/GetSidebarMenus",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BackendServer).GetSidebarMenus(ctx, req.(*GetSidebarMenusReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Backend_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "dashboard.Backend",
 	HandlerType: (*BackendServer)(nil),
@@ -198,6 +474,10 @@ var _Backend_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Ping",
 			Handler:    _Backend_Ping_Handler,
+		},
+		{
+			MethodName: "GetSidebarMenus",
+			Handler:    _Backend_GetSidebarMenus_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

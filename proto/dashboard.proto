@@ -8,6 +8,7 @@ option go_package = "dashboard";
 // Backend defines the interface exposed by the backend.
 service Backend {
     rpc Ping(Hello) returns (Pong);
+    rpc GetSidebarMenus(GetSidebarMenusReq) returns (GetSidebarMenusRes);
 }
 
 message Hello {
@@ -16,4 +17,28 @@ message Hello {
 
 message Pong {
     string reply = 1;
+}
+
+message SidebarMenu {
+    string id = 1;
+    string fa_icon = 2;
+    string text = 3;
+    repeated SidebarGroup groups = 4;
+}
+
+message SidebarGroup {
+    string text = 1;
+    repeated SidebarEntry items = 2;
+}
+
+message SidebarEntry {
+    string text = 1;
+    string route = 2;
+}
+
+message GetSidebarMenusReq {
+}
+
+message GetSidebarMenusRes {
+    repeated SidebarMenu menus = 1;
 }

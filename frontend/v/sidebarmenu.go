@@ -6,6 +6,8 @@ import (
 	"github.com/hexops/vecty/event"
 	"github.com/hexops/vecty/prop"
 	router "marwan.io/vecty-router"
+
+	dashboard "github.com/aclisp/godashboard/proto"
 )
 
 // SidebarMenu is the menu inside the main page side bar
@@ -13,20 +15,7 @@ type SidebarMenu struct {
 	vecty.Core
 
 	parent string
-	id     string
-	icon   string
-	text   string
-	groups []sidebarGroup
-}
-
-type sidebarGroup struct {
-	text  string
-	items []sidebarEntry
-}
-
-type sidebarEntry struct {
-	text  string
-	route string
+	data   *dashboard.SidebarMenu
 }
 
 // Render a side bar item
@@ -38,16 +27,16 @@ func (m *SidebarMenu) Render() vecty.ComponentOrHTML {
 				vecty.Class("nav-link", "collapsed"),
 				prop.Href("#"),
 				vecty.Data("toggle", "collapse"),
-				vecty.Data("target", "#"+m.id),
+				vecty.Data("target", "#"+m.data.Id),
 				vecty.Attribute("aria-expanded", "true"),
-				vecty.Attribute("aria-controls", m.id),
+				vecty.Attribute("aria-controls", m.data.Id),
 			),
-			elem.Italic(vecty.Markup(vecty.Class("fas", "fa-fw", m.icon))),
-			elem.Span(vecty.Text(m.text)),
+			elem.Italic(vecty.Markup(vecty.Class("fas", "fa-fw", m.data.FaIcon))),
+			elem.Span(vecty.Text(m.data.Text)),
 		),
 		elem.Div(
 			vecty.Markup(
-				prop.ID(m.id),
+				prop.ID(m.data.Id),
 				vecty.Class("collapse"),
 				vecty.Data("parent", "#"+m.parent),
 			),
@@ -61,32 +50,34 @@ func (m *SidebarMenu) Render() vecty.ComponentOrHTML {
 
 func (m *SidebarMenu) renderGroups() vecty.List {
 	list := make(vecty.List, 0, 10)
-	for i, group := range m.groups {
+	for i, group := range m.data.Groups {
 		list = append(list, m.renderGroup(group, i))
 	}
 	return list
 }
 
-func (m *SidebarMenu) renderGroup(group sidebarGroup, index int) vecty.List {
+func (m *SidebarMenu) renderGroup(group *dashboard.SidebarGroup, index int) vecty.List {
 	list := make(vecty.List, 0, 10)
 	if index > 0 {
 		list = append(list, elem.Div(vecty.Markup(vecty.Class("collapse-divider"))))
 	}
-	list = append(list, elem.Heading6(
-		vecty.Markup(vecty.Class("collapse-header")),
-		vecty.Text(group.text),
-	))
-	for _, item := range group.items {
+	if group.Text != "" {
+		list = append(list, elem.Heading6(
+			vecty.Markup(vecty.Class("collapse-header")),
+			vecty.Text(group.Text),
+		))
+	}
+	for _, item := range group.Items {
 		item := item
 		list = append(list, elem.Anchor(
 			vecty.Markup(
 				vecty.Class("collapse-item"),
-				prop.Href(item.route),
+				prop.Href(item.Route),
 				event.Click(func(e *vecty.Event) {
-					router.Redirect(item.route)
+					router.Redirect(item.Route)
 				}).PreventDefault(),
 			),
-			vecty.Text(item.text),
+			vecty.Text(item.Text),
 		))
 	}
 	return list

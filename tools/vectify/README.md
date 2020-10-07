@@ -32,3 +32,11 @@ elem.ListItem(
   ),
 ),
 ```
+
+# comparison
+
+| framework |  binding   |   event    |   two-way    |         fetch         |
+| --------- | ---------- | ---------- | ------------ | --------------------- |
+| vue       | `v-bind`   | `v-on`     | `v-model`    | on lifecycle or event |
+| angular   | `[target]` | `(target)` | `[(target)]` | on lifecycle or event |
+| react     | props      | dom events | n/a          | on lifecycle or event |

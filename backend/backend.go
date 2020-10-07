@@ -25,3 +25,96 @@ func (b *Backend) Ping(ctx context.Context, req *dashboard.Hello) (*dashboard.Po
 		Reply: req.GetMessage(),
 	}, nil
 }
+
+// GetSidebarMenus gets all side-bar menus
+func (b *Backend) GetSidebarMenus(ctx context.Context, req *dashboard.GetSidebarMenusReq) (*dashboard.GetSidebarMenusRes, error) {
+	return &dashboard.GetSidebarMenusRes{
+		Menus: []*dashboard.SidebarMenu{
+			{
+				Id:     "package1",
+				FaIcon: "fa-cog",
+				Text:   "Package 1",
+				Groups: []*dashboard.SidebarGroup{
+					{
+						Text: "Service 1:",
+						Items: []*dashboard.SidebarEntry{
+							{
+								Text:  "Method 1",
+								Route: "/dv/package1/Service1-Method1",
+							},
+							{
+								Text:  "Method 2",
+								Route: "/dv/package1/Service1-Method2",
+							},
+						},
+					},
+				},
+			},
+			{
+				Id:     "package2",
+				FaIcon: "fa-wrench",
+				Text:   "Package 2",
+				Groups: []*dashboard.SidebarGroup{
+					{
+						Text: "Service 1:",
+						Items: []*dashboard.SidebarEntry{
+							{
+								Text:  "Method 1",
+								Route: "/dv/package2/Service1-Method1",
+							},
+							{
+								Text:  "Method 2",
+								Route: "/dv/package2/Service1-Method2",
+							},
+							{
+								Text:  "Method 3",
+								Route: "/dv/package2/Service1-Method3",
+							},
+							{
+								Text:  "Method 4",
+								Route: "/dv/package2/Service1-Method4",
+							},
+						},
+					},
+				},
+			},
+			{
+				Id:     "package3",
+				FaIcon: "fa-folder",
+				Text:   "Package 3",
+				Groups: []*dashboard.SidebarGroup{
+					{
+						Text: "Service 1:",
+						Items: []*dashboard.SidebarEntry{
+							{
+								Text:  "Method 1",
+								Route: "/dv/package3/Service1-Method1",
+							},
+							{
+								Text:  "Method 2",
+								Route: "/dv/package3/Service1-Method2",
+							},
+							{
+								Text:  "Method 3",
+								Route: "/dv/package3/Service1-Method3",
+							},
+						},
+					},
+					{
+						Text: "Service 2:",
+						Items: []*dashboard.SidebarEntry{
+							{
+								Text:  "Method 1",
+								Route: "/dv/package3/Service2-Method1",
+							},
+							{
+								Text:  "Method 2",
+								Route: "/dv/package3/Service2-Method2",
+							},
+						},
+					},
+				},
+			},
+		},
+	}, nil
+}
