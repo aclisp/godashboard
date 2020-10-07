@@ -40,11 +40,11 @@ func (b *Backend) GetSidebarMenus(ctx context.Context, req *dashboard.GetSidebar
 						Items: []*dashboard.SidebarEntry{
 							{
 								Text:  "Method 1",
-								Route: "/dv/package1/Service1-Method1",
+								Route: "/go/package1/Service1-Method1",
 							},
 							{
 								Text:  "Method 2",
-								Route: "/dv/package1/Service1-Method2",
+								Route: "/go/package1/Service1-Method2",
 							},
 						},
 					},
@@ -60,19 +60,19 @@ func (b *Backend) GetSidebarMenus(ctx context.Context, req *dashboard.GetSidebar
 						Items: []*dashboard.SidebarEntry{
 							{
 								Text:  "Method 1",
-								Route: "/dv/package2/Service1-Method1",
+								Route: "/go/package2/Service1-Method1",
 							},
 							{
 								Text:  "Method 2",
-								Route: "/dv/package2/Service1-Method2",
+								Route: "/go/package2/Service1-Method2",
 							},
 							{
 								Text:  "Method 3",
-								Route: "/dv/package2/Service1-Method3",
+								Route: "/go/package2/Service1-Method3",
 							},
 							{
 								Text:  "Method 4",
-								Route: "/dv/package2/Service1-Method4",
+								Route: "/go/package2/Service1-Method4",
 							},
 						},
 					},
@@ -88,15 +88,15 @@ func (b *Backend) GetSidebarMenus(ctx context.Context, req *dashboard.GetSidebar
 						Items: []*dashboard.SidebarEntry{
 							{
 								Text:  "Method 1",
-								Route: "/dv/package3/Service1-Method1",
+								Route: "/go/package3/Service1-Method1",
 							},
 							{
 								Text:  "Method 2",
-								Route: "/dv/package3/Service1-Method2",
+								Route: "/go/package3/Service1-Method2",
 							},
 							{
 								Text:  "Method 3",
-								Route: "/dv/package3/Service1-Method3",
+								Route: "/go/package3/Service1-Method3",
 							},
 						},
 					},
@@ -105,11 +105,11 @@ func (b *Backend) GetSidebarMenus(ctx context.Context, req *dashboard.GetSidebar
 						Items: []*dashboard.SidebarEntry{
 							{
 								Text:  "Method 1",
-								Route: "/dv/package3/Service2-Method1",
+								Route: "/go/package3/Service2-Method1",
 							},
 							{
 								Text:  "Method 2",
-								Route: "/dv/package3/Service2-Method2",
+								Route: "/go/package3/Service2-Method2",
 							},
 						},
 					},

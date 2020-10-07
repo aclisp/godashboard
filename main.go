@@ -51,7 +51,7 @@ func main() {
 	// Page Routes
 	router.HandleFunc("/blank", indexHandler)
 	router.HandleFunc("/tables", indexHandler)
-	router.HandleFunc("/dv/{package}/{endpoint}", indexHandler)
+	router.HandleFunc("/go/{package}/{endpoint}", indexHandler)
 
 	router.PathPrefix("/debug/").Handler(http.DefaultServeMux)
 	router.PathPrefix("/").Handler(http.HandlerFunc(handler))
