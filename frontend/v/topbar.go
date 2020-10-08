@@ -24,7 +24,7 @@ func (b *Topbar) Render() vecty.ComponentOrHTML {
 			elem.Italic(vecty.Markup(vecty.Class("fa", "fa-bars"))),
 		),
 		// Topbar Search
-		b.renderSearch("d-none", "d-sm-inline-block", "form-inline", "mr-auto", "ml-md-3", "my-2", "my-md-0", "mw-100", "navbar-search"),
+		b.renderSelect("d-none", "d-sm-inline-block", "form-inline", "mr-auto", "ml-md-3", "my-2", "my-md-0", "mw-100", "navbar-search"),
 		// Topbar Navbar
 		elem.UnorderedList(
 			vecty.Markup(vecty.Class("navbar-nav", "ml-auto")),
@@ -45,7 +45,7 @@ func (b *Topbar) Render() vecty.ComponentOrHTML {
 					),
 					elem.Italic(
 						vecty.Markup(
-							vecty.Class("fas", "fa-search", "fa-fw"),
+							vecty.Class("fas", "fa-cloud", "fa-fw"),
 						),
 					),
 				),
@@ -55,7 +55,7 @@ func (b *Topbar) Render() vecty.ComponentOrHTML {
 						vecty.Class("dropdown-menu", "dropdown-menu-right", "p-3", "shadow", "animated--grow-in"),
 						vecty.Attribute("aria-labelledby", "searchDropdown"),
 					),
-					b.renderSearch("form-inline", "mr-auto", "w-100", "navbar-search"),
+					b.renderSelect("form-inline", "mr-auto", "w-100", "navbar-search"),
 				),
 			),
 			// Nav Item - Alerts
@@ -92,6 +92,47 @@ func (b *Topbar) renderSearch(formClass ...string) *vecty.HTML {
 						vecty.Class("btn", "btn-primary"),
 					),
 					elem.Italic(vecty.Markup(vecty.Class("fas", "fa-search", "fa-sm"))),
+				),
+			),
+		),
+	)
+}
+
+func (b *Topbar) renderSelect(formClass ...string) *vecty.HTML {
+	return elem.Form(
+		vecty.Markup(vecty.Class(formClass...)),
+		elem.Div(
+			vecty.Markup(vecty.Class("input-group")),
+			elem.Div(
+				vecty.Markup(vecty.Class("input-group-prepend")),
+				elem.Label(
+					vecty.Markup(prop.For("selectGateway"), vecty.Class("input-group-text", "bg-light")),
+					vecty.Text("选择网关:"),
+				),
+			),
+			elem.Select(
+				vecty.Markup(
+					prop.ID("selectGateway"),
+					vecty.Class("form-control", "bg-light", "small", "custom-select"),
+				),
+				elem.Option(
+					vecty.Markup(
+						vecty.Property("selected", "selected"),
+						prop.Value("1"),
+					),
+					vecty.Text("印尼"),
+				),
+				elem.Option(
+					vecty.Markup(
+						prop.Value("2"),
+					),
+					vecty.Text("新加坡"),
+				),
+				elem.Option(
+					vecty.Markup(
+						prop.Value("3"),
+					),
+					vecty.Text("美国"),
 				),
 			),
 		),

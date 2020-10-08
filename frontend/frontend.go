@@ -22,7 +22,7 @@ import (
 //go:generate bash -c "cp $DOLLAR(go env GOROOT)/misc/wasm/wasm_exec.js ./html/wasm_exec.js"
 
 // Integrate generated JS into a Go file for static loading.
-//go:generate bash -c "go run assets_generate.go"
+//go:generate bash -c "go run -mod=mod assets_generate.go"
 
 var document js.Value
 
