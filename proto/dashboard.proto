@@ -11,8 +11,8 @@ service Backend {
     rpc GetSidebarMenus(GetSidebarMenusReq) returns (GetSidebarMenusRes);
 
     // --- ysadmin.proto
-    rpc Query(YsadminReq) returns (QueryRes) {}
-    rpc Commit(YsadminReq) returns (CommitRes) {}
+    rpc Query(QueryReq) returns (QueryRes) {}
+    rpc Commit(CommitReq) returns (CommitRes) {}
 }
 
 message Hello {
@@ -75,11 +75,25 @@ message YsadminReq {
     string click_value = 20; //点击的值，如果是点击查询用这个
 }
 
+message QueryReq {
+    string package = 1;
+    string endpoint = 2;
+    string environment = 3;
+    string gateway_code = 4;
+    YsadminReq ysadmin_req = 5;
+}
+
 message QueryRes {
     Result result = 1;
     repeated TableInfo tables = 2;
     repeated ChartInfo charts = 3;
     int32 page = 4; //当前为第几页，当page不为0说明有分页
+}
+
+message CommitReq {
+    string package = 1;
+    string endpoint = 2;
+    YsadminReq req = 3;
 }
 
 message CommitRes {

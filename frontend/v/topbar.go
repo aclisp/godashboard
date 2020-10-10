@@ -138,6 +138,7 @@ func (b *Topbar) renderSelect(formClass ...string) *vecty.HTML {
 							changeGateway.GatewayID[i] = s
 						}
 						dispatcher.Dispatch(&changeGateway)
+						dispatcher.Dispatch(&action.SyncDynamicViewData{})
 					}).PreventDefault(),
 				),
 				options,

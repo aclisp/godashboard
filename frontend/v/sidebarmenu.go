@@ -1,12 +1,16 @@
 package v
 
 import (
+	"strings"
+
 	"github.com/hexops/vecty"
 	"github.com/hexops/vecty/elem"
 	"github.com/hexops/vecty/event"
 	"github.com/hexops/vecty/prop"
 	router "marwan.io/vecty-router"
 
+	"github.com/aclisp/godashboard/frontend/s/action"
+	"github.com/aclisp/godashboard/frontend/s/dispatcher"
 	dashboard "github.com/aclisp/godashboard/proto"
 )
 
@@ -74,6 +78,10 @@ func (m *SidebarMenu) renderGroup(group *dashboard.SidebarGroup, index int) vect
 				vecty.Class("collapse-item"),
 				prop.Href(item.Route),
 				event.Click(func(e *vecty.Event) {
+					if strings.HasPrefix(item.Route, "/go/") {
+						dispatcher.Dispatch(&action.ChangePackageEndpoint{Route: item.Route})
+						dispatcher.Dispatch(&action.SyncDynamicViewData{})
+					}
 					router.Redirect(item.Route)
 				}).PreventDefault(),
 			),

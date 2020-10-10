@@ -120,11 +120,41 @@ func (b *Backend) GetSidebarMenus(ctx context.Context, req *dashboard.GetSidebar
 }
 
 // Query data
-func (b *Backend) Query(ctx context.Context, req *dashboard.YsadminReq) (*dashboard.QueryRes, error) {
-	return nil, nil
+func (b *Backend) Query(ctx context.Context, req *dashboard.QueryReq) (*dashboard.QueryRes, error) {
+	return &dashboard.QueryRes{
+		Tables: []*dashboard.TableInfo{
+			{
+				Name: "Table One",
+				Ths:  []string{"Column One", "Column Two", "Column Three"},
+				Rows: []*dashboard.TdRow{
+					{
+						Infos: []*dashboard.TdInfo{
+							{Content: "aaa"},
+							{Content: "bbb"},
+							{Content: "ccc"},
+						},
+					},
+					{
+						Infos: []*dashboard.TdInfo{
+							{Content: "xxx"},
+							{Content: "yyy"},
+							{Content: "zzz"},
+						},
+					},
+					{
+						Infos: []*dashboard.TdInfo{
+							{Content: "111"},
+							{Content: "222"},
+							{Content: "333"},
+						},
+					},
+				},
+			},
+		},
+	}, nil
 }
 
 // Commit data
-func (b *Backend) Commit(ctx context.Context, req *dashboard.YsadminReq) (*dashboard.CommitRes, error) {
+func (b *Backend) Commit(ctx context.Context, req *dashboard.CommitReq) (*dashboard.CommitRes, error) {
 	return nil, nil
 }
