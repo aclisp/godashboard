@@ -118,3 +118,13 @@ func (b *Backend) GetSidebarMenus(ctx context.Context, req *dashboard.GetSidebar
 		},
 	}, nil
 }
+
+// Query data
+func (b *Backend) Query(ctx context.Context, req *dashboard.YsadminReq) (*dashboard.QueryRes, error) {
+	return nil, nil
+}
+
+// Commit data
+func (b *Backend) Commit(ctx context.Context, req *dashboard.YsadminReq) (*dashboard.CommitRes, error) {
+	return nil, nil
+}

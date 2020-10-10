@@ -26,6 +26,121 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+type TdType int32
+
+const (
+	TdType_TDTYPE_TEXT              TdType = 0
+	TdType_TDTYPE_BADGE             TdType = 1
+	TdType_TDTYPE_BOOL              TdType = 2
+	TdType_TDTYPE_IMG               TdType = 3
+	TdType_TDTYPE_LINK              TdType = 4
+	TdType_TDTYPE_AVATAR            TdType = 5
+	TdType_TDTYPE_IMG_TEXT          TdType = 6
+	TdType_TDTYPE_IMG_TITLE_CONTENT TdType = 7
+)
+
+var TdType_name = map[int32]string{
+	0: "TDTYPE_TEXT",
+	1: "TDTYPE_BADGE",
+	2: "TDTYPE_BOOL",
+	3: "TDTYPE_IMG",
+	4: "TDTYPE_LINK",
+	5: "TDTYPE_AVATAR",
+	6: "TDTYPE_IMG_TEXT",
+	7: "TDTYPE_IMG_TITLE_CONTENT",
+}
+
+var TdType_value = map[string]int32{
+	"TDTYPE_TEXT":              0,
+	"TDTYPE_BADGE":             1,
+	"TDTYPE_BOOL":              2,
+	"TDTYPE_IMG":               3,
+	"TDTYPE_LINK":              4,
+	"TDTYPE_AVATAR":            5,
+	"TDTYPE_IMG_TEXT":          6,
+	"TDTYPE_IMG_TITLE_CONTENT": 7,
+}
+
+func (x TdType) String() string {
+	return proto.EnumName(TdType_name, int32(x))
+}
+
+func (TdType) EnumDescriptor() ([]byte, []int) {
+	return fileDescriptor_9b97678da3a35dfb, []int{0}
+}
+
+// 颜色类型
+type ColorType int32
+
+const (
+	ColorType_COLORTYPE_NONE           ColorType = 0
+	ColorType_COLORTYPE_GREEN_SUCCESS  ColorType = 1
+	ColorType_COLORTYPE_BLUE_PRIMARY   ColorType = 2
+	ColorType_COLORTYPE_RED_DANGER     ColorType = 3
+	ColorType_COLORTYPE_YELLOW_WARNING ColorType = 4
+	ColorType_COLORTYPE_CYAN_INFO      ColorType = 5
+	ColorType_COLORTYPE_GRAY_SECONDARY ColorType = 6
+	ColorType_COLORTYPE_RANDOM         ColorType = 7
+)
+
+var ColorType_name = map[int32]string{
+	0: "COLORTYPE_NONE",
+	1: "COLORTYPE_GREEN_SUCCESS",
+	2: "COLORTYPE_BLUE_PRIMARY",
+	3: "COLORTYPE_RED_DANGER",
+	4: "COLORTYPE_YELLOW_WARNING",
+	5: "COLORTYPE_CYAN_INFO",
+	6: "COLORTYPE_GRAY_SECONDARY",
+	7: "COLORTYPE_RANDOM",
+}
+
+var ColorType_value = map[string]int32{
+	"COLORTYPE_NONE":           0,
+	"COLORTYPE_GREEN_SUCCESS":  1,
+	"COLORTYPE_BLUE_PRIMARY":   2,
+	"COLORTYPE_RED_DANGER":     3,
+	"COLORTYPE_YELLOW_WARNING": 4,
+	"COLORTYPE_CYAN_INFO":      5,
+	"COLORTYPE_GRAY_SECONDARY": 6,
+	"COLORTYPE_RANDOM":         7,
+}
+
+func (x ColorType) String() string {
+	return proto.EnumName(ColorType_name, int32(x))
+}
+
+func (ColorType) EnumDescriptor() ([]byte, []int) {
+	return fileDescriptor_9b97678da3a35dfb, []int{1}
+}
+
+type ChartType int32
+
+const (
+	ChartType_CHARTTYPE_LINE ChartType = 0
+	ChartType_CHARTTYPE_BAR  ChartType = 1
+	ChartType_CHARTTYPE_PIE  ChartType = 2
+)
+
+var ChartType_name = map[int32]string{
+	0: "CHARTTYPE_LINE",
+	1: "CHARTTYPE_BAR",
+	2: "CHARTTYPE_PIE",
+}
+
+var ChartType_value = map[string]int32{
+	"CHARTTYPE_LINE": 0,
+	"CHARTTYPE_BAR":  1,
+	"CHARTTYPE_PIE":  2,
+}
+
+func (x ChartType) String() string {
+	return proto.EnumName(ChartType_name, int32(x))
+}
+
+func (ChartType) EnumDescriptor() ([]byte, []int) {
+	return fileDescriptor_9b97678da3a35dfb, []int{2}
+}
+
 type Hello struct {
 	Message              string   `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -331,7 +446,641 @@ func (m *GetSidebarMenusRes) GetMenus() []*SidebarMenu {
 	return nil
 }
 
+type Result struct {
+	Errcode              int64    `protobuf:"varint,1,opt,name=errcode,proto3" json:"errcode,omitempty"`
+	Errmsg               string   `protobuf:"bytes,2,opt,name=errmsg,proto3" json:"errmsg,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Result) Reset()         { *m = Result{} }
+func (m *Result) String() string { return proto.CompactTextString(m) }
+func (*Result) ProtoMessage()    {}
+func (*Result) Descriptor() ([]byte, []int) {
+	return fileDescriptor_9b97678da3a35dfb, []int{7}
+}
+
+func (m *Result) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Result.Unmarshal(m, b)
+}
+func (m *Result) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Result.Marshal(b, m, deterministic)
+}
+func (m *Result) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Result.Merge(m, src)
+}
+func (m *Result) XXX_Size() int {
+	return xxx_messageInfo_Result.Size(m)
+}
+func (m *Result) XXX_DiscardUnknown() {
+	xxx_messageInfo_Result.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Result proto.InternalMessageInfo
+
+func (m *Result) GetErrcode() int64 {
+	if m != nil {
+		return m.Errcode
+	}
+	return 0
+}
+
+func (m *Result) GetErrmsg() string {
+	if m != nil {
+		return m.Errmsg
+	}
+	return ""
+}
+
+type YsadminReq struct {
+	Cmd                  string   `protobuf:"bytes,1,opt,name=cmd,proto3" json:"cmd,omitempty"`
+	Uid                  int64    `protobuf:"varint,2,opt,name=uid,proto3" json:"uid,omitempty"`
+	Date                 string   `protobuf:"bytes,3,opt,name=date,proto3" json:"date,omitempty"`
+	StartDate            string   `protobuf:"bytes,4,opt,name=start_date,json=startDate,proto3" json:"start_date,omitempty"`
+	EndDate              string   `protobuf:"bytes,5,opt,name=end_date,json=endDate,proto3" json:"end_date,omitempty"`
+	Expand               string   `protobuf:"bytes,6,opt,name=expand,proto3" json:"expand,omitempty"`
+	Token                string   `protobuf:"bytes,7,opt,name=token,proto3" json:"token,omitempty"`
+	Sname                string   `protobuf:"bytes,8,opt,name=sname,proto3" json:"sname,omitempty"`
+	Cid                  string   `protobuf:"bytes,9,opt,name=cid,proto3" json:"cid,omitempty"`
+	Month                string   `protobuf:"bytes,10,opt,name=month,proto3" json:"month,omitempty"`
+	Week                 string   `protobuf:"bytes,11,opt,name=week,proto3" json:"week,omitempty"`
+	Page                 int32    `protobuf:"varint,12,opt,name=page,proto3" json:"page,omitempty"`
+	Region               string   `protobuf:"bytes,13,opt,name=region,proto3" json:"region,omitempty"`
+	Country              string   `protobuf:"bytes,14,opt,name=country,proto3" json:"country,omitempty"`
+	Area                 string   `protobuf:"bytes,15,opt,name=area,proto3" json:"area,omitempty"`
+	ClickValue           string   `protobuf:"bytes,20,opt,name=click_value,json=clickValue,proto3" json:"click_value,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *YsadminReq) Reset()         { *m = YsadminReq{} }
+func (m *YsadminReq) String() string { return proto.CompactTextString(m) }
+func (*YsadminReq) ProtoMessage()    {}
+func (*YsadminReq) Descriptor() ([]byte, []int) {
+	return fileDescriptor_9b97678da3a35dfb, []int{8}
+}
+
+func (m *YsadminReq) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_YsadminReq.Unmarshal(m, b)
+}
+func (m *YsadminReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_YsadminReq.Marshal(b, m, deterministic)
+}
+func (m *YsadminReq) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_YsadminReq.Merge(m, src)
+}
+func (m *YsadminReq) XXX_Size() int {
+	return xxx_messageInfo_YsadminReq.Size(m)
+}
+func (m *YsadminReq) XXX_DiscardUnknown() {
+	xxx_messageInfo_YsadminReq.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_YsadminReq proto.InternalMessageInfo
+
+func (m *YsadminReq) GetCmd() string {
+	if m != nil {
+		return m.Cmd
+	}
+	return ""
+}
+
+func (m *YsadminReq) GetUid() int64 {
+	if m != nil {
+		return m.Uid
+	}
+	return 0
+}
+
+func (m *YsadminReq) GetDate() string {
+	if m != nil {
+		return m.Date
+	}
+	return ""
+}
+
+func (m *YsadminReq) GetStartDate() string {
+	if m != nil {
+		return m.StartDate
+	}
+	return ""
+}
+
+func (m *YsadminReq) GetEndDate() string {
+	if m != nil {
+		return m.EndDate
+	}
+	return ""
+}
+
+func (m *YsadminReq) GetExpand() string {
+	if m != nil {
+		return m.Expand
+	}
+	return ""
+}
+
+func (m *YsadminReq) GetToken() string {
+	if m != nil {
+		return m.Token
+	}
+	return ""
+}
+
+func (m *YsadminReq) GetSname() string {
+	if m != nil {
+		return m.Sname
+	}
+	return ""
+}
+
+func (m *YsadminReq) GetCid() string {
+	if m != nil {
+		return m.Cid
+	}
+	return ""
+}
+
+func (m *YsadminReq) GetMonth() string {
+	if m != nil {
+		return m.Month
+	}
+	return ""
+}
+
+func (m *YsadminReq) GetWeek() string {
+	if m != nil {
+		return m.Week
+	}
+	return ""
+}
+
+func (m *YsadminReq) GetPage() int32 {
+	if m != nil {
+		return m.Page
+	}
+	return 0
+}
+
+func (m *YsadminReq) GetRegion() string {
+	if m != nil {
+		return m.Region
+	}
+	return ""
+}
+
+func (m *YsadminReq) GetCountry() string {
+	if m != nil {
+		return m.Country
+	}
+	return ""
+}
+
+func (m *YsadminReq) GetArea() string {
+	if m != nil {
+		return m.Area
+	}
+	return ""
+}
+
+func (m *YsadminReq) GetClickValue() string {
+	if m != nil {
+		return m.ClickValue
+	}
+	return ""
+}
+
+type QueryRes struct {
+	Result               *Result      `protobuf:"bytes,1,opt,name=result,proto3" json:"result,omitempty"`
+	Tables               []*TableInfo `protobuf:"bytes,2,rep,name=tables,proto3" json:"tables,omitempty"`
+	Charts               []*ChartInfo `protobuf:"bytes,3,rep,name=charts,proto3" json:"charts,omitempty"`
+	Page                 int32        `protobuf:"varint,4,opt,name=page,proto3" json:"page,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
+	XXX_unrecognized     []byte       `json:"-"`
+	XXX_sizecache        int32        `json:"-"`
+}
+
+func (m *QueryRes) Reset()         { *m = QueryRes{} }
+func (m *QueryRes) String() string { return proto.CompactTextString(m) }
+func (*QueryRes) ProtoMessage()    {}
+func (*QueryRes) Descriptor() ([]byte, []int) {
+	return fileDescriptor_9b97678da3a35dfb, []int{9}
+}
+
+func (m *QueryRes) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_QueryRes.Unmarshal(m, b)
+}
+func (m *QueryRes) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_QueryRes.Marshal(b, m, deterministic)
+}
+func (m *QueryRes) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryRes.Merge(m, src)
+}
+func (m *QueryRes) XXX_Size() int {
+	return xxx_messageInfo_QueryRes.Size(m)
+}
+func (m *QueryRes) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryRes.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryRes proto.InternalMessageInfo
+
+func (m *QueryRes) GetResult() *Result {
+	if m != nil {
+		return m.Result
+	}
+	return nil
+}
+
+func (m *QueryRes) GetTables() []*TableInfo {
+	if m != nil {
+		return m.Tables
+	}
+	return nil
+}
+
+func (m *QueryRes) GetCharts() []*ChartInfo {
+	if m != nil {
+		return m.Charts
+	}
+	return nil
+}
+
+func (m *QueryRes) GetPage() int32 {
+	if m != nil {
+		return m.Page
+	}
+	return 0
+}
+
+type CommitRes struct {
+	Result               *Result  `protobuf:"bytes,1,opt,name=result,proto3" json:"result,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *CommitRes) Reset()         { *m = CommitRes{} }
+func (m *CommitRes) String() string { return proto.CompactTextString(m) }
+func (*CommitRes) ProtoMessage()    {}
+func (*CommitRes) Descriptor() ([]byte, []int) {
+	return fileDescriptor_9b97678da3a35dfb, []int{10}
+}
+
+func (m *CommitRes) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CommitRes.Unmarshal(m, b)
+}
+func (m *CommitRes) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CommitRes.Marshal(b, m, deterministic)
+}
+func (m *CommitRes) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CommitRes.Merge(m, src)
+}
+func (m *CommitRes) XXX_Size() int {
+	return xxx_messageInfo_CommitRes.Size(m)
+}
+func (m *CommitRes) XXX_DiscardUnknown() {
+	xxx_messageInfo_CommitRes.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CommitRes proto.InternalMessageInfo
+
+func (m *CommitRes) GetResult() *Result {
+	if m != nil {
+		return m.Result
+	}
+	return nil
+}
+
+type TdInfo struct {
+	TdType               TdType    `protobuf:"varint,1,opt,name=td_type,json=tdType,proto3,enum=dashboard.TdType" json:"td_type,omitempty"`
+	Content              string    `protobuf:"bytes,2,opt,name=content,proto3" json:"content,omitempty"`
+	IsTrue               bool      `protobuf:"varint,3,opt,name=is_true,json=isTrue,proto3" json:"is_true,omitempty"`
+	Link                 string    `protobuf:"bytes,4,opt,name=link,proto3" json:"link,omitempty"`
+	Color                ColorType `protobuf:"varint,5,opt,name=color,proto3,enum=dashboard.ColorType" json:"color,omitempty"`
+	Width                int32     `protobuf:"varint,6,opt,name=width,proto3" json:"width,omitempty"`
+	Height               int32     `protobuf:"varint,7,opt,name=height,proto3" json:"height,omitempty"`
+	Title                string    `protobuf:"bytes,8,opt,name=title,proto3" json:"title,omitempty"`
+	Clickable            bool      `protobuf:"varint,9,opt,name=clickable,proto3" json:"clickable,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
+	XXX_unrecognized     []byte    `json:"-"`
+	XXX_sizecache        int32     `json:"-"`
+}
+
+func (m *TdInfo) Reset()         { *m = TdInfo{} }
+func (m *TdInfo) String() string { return proto.CompactTextString(m) }
+func (*TdInfo) ProtoMessage()    {}
+func (*TdInfo) Descriptor() ([]byte, []int) {
+	return fileDescriptor_9b97678da3a35dfb, []int{11}
+}
+
+func (m *TdInfo) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_TdInfo.Unmarshal(m, b)
+}
+func (m *TdInfo) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_TdInfo.Marshal(b, m, deterministic)
+}
+func (m *TdInfo) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_TdInfo.Merge(m, src)
+}
+func (m *TdInfo) XXX_Size() int {
+	return xxx_messageInfo_TdInfo.Size(m)
+}
+func (m *TdInfo) XXX_DiscardUnknown() {
+	xxx_messageInfo_TdInfo.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_TdInfo proto.InternalMessageInfo
+
+func (m *TdInfo) GetTdType() TdType {
+	if m != nil {
+		return m.TdType
+	}
+	return TdType_TDTYPE_TEXT
+}
+
+func (m *TdInfo) GetContent() string {
+	if m != nil {
+		return m.Content
+	}
+	return ""
+}
+
+func (m *TdInfo) GetIsTrue() bool {
+	if m != nil {
+		return m.IsTrue
+	}
+	return false
+}
+
+func (m *TdInfo) GetLink() string {
+	if m != nil {
+		return m.Link
+	}
+	return ""
+}
+
+func (m *TdInfo) GetColor() ColorType {
+	if m != nil {
+		return m.Color
+	}
+	return ColorType_COLORTYPE_NONE
+}
+
+func (m *TdInfo) GetWidth() int32 {
+	if m != nil {
+		return m.Width
+	}
+	return 0
+}
+
+func (m *TdInfo) GetHeight() int32 {
+	if m != nil {
+		return m.Height
+	}
+	return 0
+}
+
+func (m *TdInfo) GetTitle() string {
+	if m != nil {
+		return m.Title
+	}
+	return ""
+}
+
+func (m *TdInfo) GetClickable() bool {
+	if m != nil {
+		return m.Clickable
+	}
+	return false
+}
+
+type TdRow struct {
+	Infos                []*TdInfo `protobuf:"bytes,1,rep,name=infos,proto3" json:"infos,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
+	XXX_unrecognized     []byte    `json:"-"`
+	XXX_sizecache        int32     `json:"-"`
+}
+
+func (m *TdRow) Reset()         { *m = TdRow{} }
+func (m *TdRow) String() string { return proto.CompactTextString(m) }
+func (*TdRow) ProtoMessage()    {}
+func (*TdRow) Descriptor() ([]byte, []int) {
+	return fileDescriptor_9b97678da3a35dfb, []int{12}
+}
+
+func (m *TdRow) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_TdRow.Unmarshal(m, b)
+}
+func (m *TdRow) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_TdRow.Marshal(b, m, deterministic)
+}
+func (m *TdRow) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_TdRow.Merge(m, src)
+}
+func (m *TdRow) XXX_Size() int {
+	return xxx_messageInfo_TdRow.Size(m)
+}
+func (m *TdRow) XXX_DiscardUnknown() {
+	xxx_messageInfo_TdRow.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_TdRow proto.InternalMessageInfo
+
+func (m *TdRow) GetInfos() []*TdInfo {
+	if m != nil {
+		return m.Infos
+	}
+	return nil
+}
+
+type TableInfo struct {
+	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Ths                  []string `protobuf:"bytes,2,rep,name=ths,proto3" json:"ths,omitempty"`
+	Rows                 []*TdRow `protobuf:"bytes,3,rep,name=rows,proto3" json:"rows,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *TableInfo) Reset()         { *m = TableInfo{} }
+func (m *TableInfo) String() string { return proto.CompactTextString(m) }
+func (*TableInfo) ProtoMessage()    {}
+func (*TableInfo) Descriptor() ([]byte, []int) {
+	return fileDescriptor_9b97678da3a35dfb, []int{13}
+}
+
+func (m *TableInfo) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_TableInfo.Unmarshal(m, b)
+}
+func (m *TableInfo) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_TableInfo.Marshal(b, m, deterministic)
+}
+func (m *TableInfo) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_TableInfo.Merge(m, src)
+}
+func (m *TableInfo) XXX_Size() int {
+	return xxx_messageInfo_TableInfo.Size(m)
+}
+func (m *TableInfo) XXX_DiscardUnknown() {
+	xxx_messageInfo_TableInfo.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_TableInfo proto.InternalMessageInfo
+
+func (m *TableInfo) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *TableInfo) GetThs() []string {
+	if m != nil {
+		return m.Ths
+	}
+	return nil
+}
+
+func (m *TableInfo) GetRows() []*TdRow {
+	if m != nil {
+		return m.Rows
+	}
+	return nil
+}
+
+type ChartInfo struct {
+	ChartType            ChartType  `protobuf:"varint,1,opt,name=chart_type,json=chartType,proto3,enum=dashboard.ChartType" json:"chart_type,omitempty"`
+	Name                 string     `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Labels               []string   `protobuf:"bytes,3,rep,name=labels,proto3" json:"labels,omitempty"`
+	Datasets             []*Dataset `protobuf:"bytes,4,rep,name=datasets,proto3" json:"datasets,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
+	XXX_unrecognized     []byte     `json:"-"`
+	XXX_sizecache        int32      `json:"-"`
+}
+
+func (m *ChartInfo) Reset()         { *m = ChartInfo{} }
+func (m *ChartInfo) String() string { return proto.CompactTextString(m) }
+func (*ChartInfo) ProtoMessage()    {}
+func (*ChartInfo) Descriptor() ([]byte, []int) {
+	return fileDescriptor_9b97678da3a35dfb, []int{14}
+}
+
+func (m *ChartInfo) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ChartInfo.Unmarshal(m, b)
+}
+func (m *ChartInfo) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ChartInfo.Marshal(b, m, deterministic)
+}
+func (m *ChartInfo) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ChartInfo.Merge(m, src)
+}
+func (m *ChartInfo) XXX_Size() int {
+	return xxx_messageInfo_ChartInfo.Size(m)
+}
+func (m *ChartInfo) XXX_DiscardUnknown() {
+	xxx_messageInfo_ChartInfo.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ChartInfo proto.InternalMessageInfo
+
+func (m *ChartInfo) GetChartType() ChartType {
+	if m != nil {
+		return m.ChartType
+	}
+	return ChartType_CHARTTYPE_LINE
+}
+
+func (m *ChartInfo) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *ChartInfo) GetLabels() []string {
+	if m != nil {
+		return m.Labels
+	}
+	return nil
+}
+
+func (m *ChartInfo) GetDatasets() []*Dataset {
+	if m != nil {
+		return m.Datasets
+	}
+	return nil
+}
+
+type Dataset struct {
+	Label                string      `protobuf:"bytes,1,opt,name=label,proto3" json:"label,omitempty"`
+	Color                ColorType   `protobuf:"varint,2,opt,name=color,proto3,enum=dashboard.ColorType" json:"color,omitempty"`
+	Datas                []int64     `protobuf:"varint,3,rep,packed,name=datas,proto3" json:"datas,omitempty"`
+	Colors               []ColorType `protobuf:"varint,4,rep,packed,name=colors,proto3,enum=dashboard.ColorType" json:"colors,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
+	XXX_unrecognized     []byte      `json:"-"`
+	XXX_sizecache        int32       `json:"-"`
+}
+
+func (m *Dataset) Reset()         { *m = Dataset{} }
+func (m *Dataset) String() string { return proto.CompactTextString(m) }
+func (*Dataset) ProtoMessage()    {}
+func (*Dataset) Descriptor() ([]byte, []int) {
+	return fileDescriptor_9b97678da3a35dfb, []int{15}
+}
+
+func (m *Dataset) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Dataset.Unmarshal(m, b)
+}
+func (m *Dataset) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Dataset.Marshal(b, m, deterministic)
+}
+func (m *Dataset) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Dataset.Merge(m, src)
+}
+func (m *Dataset) XXX_Size() int {
+	return xxx_messageInfo_Dataset.Size(m)
+}
+func (m *Dataset) XXX_DiscardUnknown() {
+	xxx_messageInfo_Dataset.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Dataset proto.InternalMessageInfo
+
+func (m *Dataset) GetLabel() string {
+	if m != nil {
+		return m.Label
+	}
+	return ""
+}
+
+func (m *Dataset) GetColor() ColorType {
+	if m != nil {
+		return m.Color
+	}
+	return ColorType_COLORTYPE_NONE
+}
+
+func (m *Dataset) GetDatas() []int64 {
+	if m != nil {
+		return m.Datas
+	}
+	return nil
+}
+
+func (m *Dataset) GetColors() []ColorType {
+	if m != nil {
+		return m.Colors
+	}
+	return nil
+}
+
 func init() {
+	proto.RegisterEnum("dashboard.TdType", TdType_name, TdType_value)
+	proto.RegisterEnum("dashboard.ColorType", ColorType_name, ColorType_value)
+	proto.RegisterEnum("dashboard.ChartType", ChartType_name, ChartType_value)
 	proto.RegisterType((*Hello)(nil), "dashboard.Hello")
 	proto.RegisterType((*Pong)(nil), "dashboard.Pong")
 	proto.RegisterType((*SidebarMenu)(nil), "dashboard.SidebarMenu")
@@ -339,33 +1088,96 @@ func init() {
 	proto.RegisterType((*SidebarEntry)(nil), "dashboard.SidebarEntry")
 	proto.RegisterType((*GetSidebarMenusReq)(nil), "dashboard.GetSidebarMenusReq")
 	proto.RegisterType((*GetSidebarMenusRes)(nil), "dashboard.GetSidebarMenusRes")
+	proto.RegisterType((*Result)(nil), "dashboard.Result")
+	proto.RegisterType((*YsadminReq)(nil), "dashboard.YsadminReq")
+	proto.RegisterType((*QueryRes)(nil), "dashboard.QueryRes")
+	proto.RegisterType((*CommitRes)(nil), "dashboard.CommitRes")
+	proto.RegisterType((*TdInfo)(nil), "dashboard.TdInfo")
+	proto.RegisterType((*TdRow)(nil), "dashboard.TdRow")
+	proto.RegisterType((*TableInfo)(nil), "dashboard.TableInfo")
+	proto.RegisterType((*ChartInfo)(nil), "dashboard.ChartInfo")
+	proto.RegisterType((*Dataset)(nil), "dashboard.Dataset")
 }
 
 func init() { proto.RegisterFile("dashboard.proto", fileDescriptor_9b97678da3a35dfb) }
 
 var fileDescriptor_9b97678da3a35dfb = []byte{
-	// 321 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x7c, 0x52, 0x41, 0x4f, 0xf2, 0x40,
-	0x10, 0x4d, 0x4b, 0x0b, 0x61, 0xf8, 0xf2, 0x61, 0x26, 0x44, 0x36, 0x44, 0x13, 0xdc, 0x13, 0x26,
-	0x8a, 0x09, 0x5e, 0x3c, 0x93, 0x18, 0xf4, 0x60, 0xc4, 0x7a, 0xf3, 0x62, 0x16, 0x3a, 0xd4, 0x46,
-	0xd8, 0xc5, 0xee, 0x92, 0x48, 0x3c, 0xfb, 0xbf, 0x4d, 0xb7, 0x15, 0x36, 0x82, 0xde, 0x66, 0xde,
-	0xbc, 0x7d, 0xf3, 0x76, 0x66, 0xa0, 0x19, 0x0b, 0xfd, 0x32, 0x51, 0x22, 0x8b, 0xfb, 0xcb, 0x4c,
-	0x19, 0x85, 0xf5, 0x0d, 0xc0, 0x4f, 0x20, 0xbc, 0xa1, 0xf9, 0x5c, 0x21, 0x83, 0xda, 0x82, 0xb4,
-	0x16, 0x09, 0x31, 0xaf, 0xeb, 0xf5, 0xea, 0xd1, 0x77, 0xca, 0x8f, 0x20, 0x18, 0x2b, 0x99, 0x60,
-	0x0b, 0xc2, 0x8c, 0x96, 0xf3, 0x75, 0x59, 0x2f, 0x12, 0xfe, 0x01, 0x8d, 0xc7, 0x34, 0xa6, 0x89,
-	0xc8, 0xee, 0x48, 0xae, 0xf0, 0x3f, 0xf8, 0x69, 0x5c, 0x32, 0xfc, 0x34, 0xc6, 0x36, 0xd4, 0x66,
-	0xe2, 0x39, 0x9d, 0x2a, 0xc9, 0x7c, 0x0b, 0x56, 0x67, 0xe2, 0x76, 0xaa, 0x24, 0x22, 0x04, 0x86,
-	0xde, 0x0d, 0xab, 0x58, 0xd4, 0xc6, 0x78, 0x01, 0xd5, 0x24, 0x53, 0xab, 0xa5, 0x66, 0x41, 0xb7,
-	0xd2, 0x6b, 0x0c, 0xda, 0xfd, 0xad, 0xf3, 0xb2, 0xc9, 0x28, 0xaf, 0x47, 0x25, 0x8d, 0x3f, 0xc0,
-	0x3f, 0x17, 0xdf, 0x88, 0x7a, 0x8e, 0xe8, 0x39, 0x84, 0xa9, 0xa1, 0x85, 0x66, 0xfe, 0x6f, 0x9a,
-	0xd7, 0xd2, 0x64, 0xeb, 0xa8, 0x60, 0xf1, 0xab, 0x8d, 0xa4, 0x85, 0xf7, 0x4a, 0xe6, 0x93, 0x50,
-	0x2b, 0x43, 0xe5, 0x97, 0x8a, 0x84, 0xb7, 0x00, 0x47, 0x64, 0x9c, 0x61, 0xe8, 0x88, 0xde, 0xf8,
-	0x70, 0x0f, 0xaa, 0xf1, 0x0c, 0xc2, 0x45, 0x1e, 0x33, 0xcf, 0x9a, 0x3a, 0xdc, 0x35, 0x95, 0x53,
-	0xa3, 0x82, 0x34, 0xf8, 0xf4, 0xa0, 0x36, 0x14, 0xd3, 0x57, 0x92, 0x31, 0x9e, 0x42, 0x30, 0x4e,
-	0x65, 0x82, 0x07, 0xce, 0x13, 0xbb, 0xc1, 0x4e, 0xd3, 0x41, 0xec, 0xc2, 0xee, 0xa1, 0xf9, 0xa3,
-	0x35, 0x1e, 0x3b, 0x9c, 0x5d, 0xb3, 0x9d, 0x3f, 0xcb, 0x7a, 0xd8, 0x78, 0xda, 0x5e, 0xce, 0xa4,
-	0x6a, 0x6f, 0xe9, 0xf2, 0x2b, 0x00, 0x00, 0xff, 0xff, 0x0e, 0xdc, 0x5d, 0xe4, 0x5e, 0x02, 0x00,
-	0x00,
+	// 1195 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x56, 0x5f, 0x6f, 0xe3, 0x44,
+	0x10, 0xaf, 0x93, 0xd8, 0x49, 0x26, 0x77, 0x89, 0xbb, 0x0d, 0xad, 0x29, 0x3d, 0x51, 0x2c, 0x24,
+	0x7a, 0xd5, 0x51, 0x50, 0x4f, 0xfc, 0x11, 0x6f, 0x4e, 0x62, 0x72, 0x11, 0xa9, 0xd3, 0xdb, 0xfa,
+	0xae, 0x84, 0x17, 0xcb, 0xb5, 0xb7, 0x89, 0x55, 0xc7, 0xce, 0xd9, 0x1b, 0x7a, 0x15, 0x9f, 0x80,
+	0x27, 0xbe, 0x00, 0x6f, 0x88, 0x8f, 0xc5, 0xc7, 0xe0, 0x81, 0x37, 0xb4, 0xbb, 0x76, 0xec, 0xd0,
+	0x2b, 0x82, 0xa7, 0xcc, 0xfc, 0xe6, 0xb7, 0xb3, 0xb3, 0x33, 0xbf, 0xec, 0x1a, 0x3a, 0xbe, 0x9b,
+	0xce, 0xaf, 0x62, 0x37, 0xf1, 0x4f, 0x96, 0x49, 0x4c, 0x63, 0xd4, 0x5c, 0x03, 0xfa, 0x47, 0x20,
+	0xbf, 0x20, 0x61, 0x18, 0x23, 0x0d, 0xea, 0x0b, 0x92, 0xa6, 0xee, 0x8c, 0x68, 0xd2, 0xa1, 0x74,
+	0xd4, 0xc4, 0xb9, 0xab, 0x1f, 0x40, 0xed, 0x3c, 0x8e, 0x66, 0xa8, 0x0b, 0x72, 0x42, 0x96, 0xe1,
+	0x5d, 0x16, 0x17, 0x8e, 0xfe, 0x13, 0xb4, 0x2e, 0x02, 0x9f, 0x5c, 0xb9, 0xc9, 0x19, 0x89, 0x56,
+	0xa8, 0x0d, 0x95, 0xc0, 0xcf, 0x18, 0x95, 0xc0, 0x47, 0x7b, 0x50, 0xbf, 0x76, 0x9d, 0xc0, 0x8b,
+	0x23, 0xad, 0xc2, 0x41, 0xe5, 0xda, 0x1d, 0x79, 0x71, 0x84, 0x10, 0xd4, 0x28, 0x79, 0x4b, 0xb5,
+	0x2a, 0x47, 0xb9, 0x8d, 0x3e, 0x03, 0x65, 0x96, 0xc4, 0xab, 0x65, 0xaa, 0xd5, 0x0e, 0xab, 0x47,
+	0xad, 0xd3, 0xbd, 0x93, 0xa2, 0xf2, 0x6c, 0x93, 0x21, 0x8b, 0xe3, 0x8c, 0xa6, 0xbf, 0x84, 0x47,
+	0x65, 0x7c, 0x9d, 0x54, 0x2a, 0x25, 0xfd, 0x14, 0xe4, 0x80, 0x92, 0x45, 0xaa, 0x55, 0x1e, 0xca,
+	0x69, 0x46, 0x34, 0xb9, 0xc3, 0x82, 0xa5, 0x7f, 0xbd, 0x4e, 0xc9, 0xe1, 0x77, 0xa6, 0x64, 0x9d,
+	0x88, 0x57, 0x94, 0x64, 0x47, 0x12, 0x8e, 0xde, 0x05, 0x34, 0x24, 0xb4, 0xd4, 0x8c, 0x14, 0x93,
+	0x37, 0x7a, 0xef, 0x1d, 0x68, 0x8a, 0x9e, 0x81, 0xbc, 0x60, 0xb6, 0x26, 0xf1, 0xa2, 0x76, 0xef,
+	0x17, 0xc5, 0xa8, 0x58, 0x90, 0xf4, 0x6f, 0x40, 0xc1, 0x24, 0x5d, 0x85, 0x94, 0x4d, 0x89, 0x24,
+	0x89, 0x17, 0xfb, 0x62, 0x4a, 0x55, 0x9c, 0xbb, 0x68, 0x17, 0x14, 0x92, 0x24, 0x8b, 0x74, 0x96,
+	0xf7, 0x59, 0x78, 0xfa, 0x5f, 0x15, 0x80, 0x69, 0xea, 0xfa, 0x8b, 0x20, 0xc2, 0xe4, 0x0d, 0x52,
+	0xa1, 0xea, 0x2d, 0xf2, 0x01, 0x31, 0x93, 0x21, 0xab, 0xc0, 0xe7, 0xab, 0xaa, 0x98, 0x99, 0xec,
+	0xc8, 0xbe, 0x4b, 0x49, 0x3e, 0x1a, 0x66, 0xa3, 0x27, 0x00, 0x29, 0x75, 0x13, 0xea, 0xf0, 0x48,
+	0x8d, 0x47, 0x9a, 0x1c, 0x19, 0xb0, 0xf0, 0xfb, 0xd0, 0x20, 0x91, 0x2f, 0x82, 0xb2, 0x90, 0x0f,
+	0x89, 0x7c, 0x1e, 0x62, 0x85, 0xbd, 0x5d, 0xba, 0x91, 0xaf, 0x29, 0x59, 0x61, 0xdc, 0x63, 0x4d,
+	0xa4, 0xf1, 0x0d, 0x89, 0xb4, 0xba, 0x68, 0x22, 0x77, 0x18, 0x9a, 0x46, 0xee, 0x82, 0x68, 0x0d,
+	0x81, 0x72, 0x87, 0x57, 0x1d, 0xf8, 0x5a, 0x33, 0xab, 0x3a, 0xe0, 0xab, 0x17, 0x71, 0x44, 0xe7,
+	0x1a, 0x08, 0x1e, 0x77, 0x58, 0xe5, 0xb7, 0x84, 0xdc, 0x68, 0x2d, 0x51, 0x39, 0xb3, 0x19, 0xb6,
+	0x64, 0xaa, 0x7e, 0x74, 0x28, 0x1d, 0xc9, 0x98, 0xdb, 0xac, 0xa6, 0x84, 0xcc, 0x82, 0x38, 0xd2,
+	0x1e, 0x8b, 0x9a, 0x84, 0xc7, 0xda, 0xeb, 0xc5, 0x2b, 0x36, 0x77, 0xad, 0x2d, 0x4e, 0x91, 0xb9,
+	0x2c, 0x8b, 0x9b, 0x10, 0x57, 0xeb, 0x88, 0xcc, 0xcc, 0x46, 0x1f, 0x42, 0xcb, 0x0b, 0x03, 0xef,
+	0xc6, 0xf9, 0xd1, 0x0d, 0x57, 0x44, 0xeb, 0xf2, 0x10, 0x70, 0xe8, 0x35, 0x43, 0xf4, 0xdf, 0x25,
+	0x68, 0xbc, 0x5c, 0x91, 0xe4, 0x8e, 0x8d, 0xfc, 0x29, 0xdb, 0x93, 0x0d, 0x91, 0x37, 0xbf, 0x75,
+	0xba, 0x5d, 0x9a, 0xb9, 0x98, 0x2e, 0xce, 0x08, 0xe8, 0x19, 0x28, 0xd4, 0xbd, 0x0a, 0x49, 0xae,
+	0xd9, 0x6e, 0x89, 0x6a, 0xb3, 0xc0, 0x28, 0xba, 0x8e, 0x71, 0xc6, 0x61, 0x6c, 0x6f, 0xee, 0x26,
+	0x34, 0xd5, 0xaa, 0xf7, 0xd8, 0x7d, 0x16, 0x10, 0x6c, 0xc1, 0x59, 0xb7, 0xa3, 0x56, 0xb4, 0x43,
+	0xff, 0x12, 0x9a, 0xfd, 0x78, 0xb1, 0x08, 0xe8, 0xff, 0xab, 0x53, 0xff, 0xb9, 0x02, 0x8a, 0xed,
+	0xb3, 0xf4, 0xe8, 0x18, 0xea, 0xd4, 0x77, 0xe8, 0xdd, 0x52, 0x08, 0xb3, 0xbd, 0xb1, 0xcc, 0xf6,
+	0xed, 0xbb, 0x25, 0xc1, 0x0a, 0xe5, 0xbf, 0xa2, 0xcb, 0x11, 0x25, 0x11, 0xcd, 0xb4, 0x9a, 0xbb,
+	0xec, 0xb6, 0x08, 0x52, 0x87, 0x26, 0x2b, 0x21, 0xbe, 0x06, 0x56, 0x82, 0xd4, 0x4e, 0x56, 0x84,
+	0x55, 0x1d, 0x06, 0xd1, 0x4d, 0x26, 0x3c, 0x6e, 0xa3, 0x63, 0x90, 0xbd, 0x38, 0x8c, 0x13, 0x2e,
+	0xb8, 0xf6, 0xe6, 0xb1, 0x19, 0xce, 0xf7, 0x14, 0x14, 0x26, 0x97, 0xdb, 0xc0, 0xa7, 0x73, 0xae,
+	0x41, 0x19, 0x0b, 0x87, 0xc9, 0x60, 0x4e, 0x82, 0xd9, 0x9c, 0x72, 0x0d, 0xca, 0x38, 0xf3, 0xb8,
+	0x34, 0x03, 0x1a, 0xae, 0x45, 0xc8, 0x1d, 0x74, 0x00, 0x4d, 0x3e, 0x5b, 0xd6, 0x75, 0x2e, 0xc5,
+	0x06, 0x2e, 0x00, 0xfd, 0x73, 0x90, 0x6d, 0x1f, 0xc7, 0xb7, 0xe8, 0x13, 0x90, 0x83, 0xe8, 0x3a,
+	0xce, 0xff, 0xda, 0x9b, 0x7d, 0xe0, 0xa3, 0x10, 0x71, 0xfd, 0x12, 0x9a, 0xeb, 0x61, 0xb2, 0x03,
+	0x72, 0xd9, 0x67, 0xd7, 0x4c, 0xae, 0x7a, 0x3a, 0x17, 0x1a, 0x68, 0x62, 0x66, 0xa2, 0x8f, 0xa1,
+	0x96, 0xc4, 0xb7, 0xf9, 0xa0, 0xd5, 0x8d, 0xd4, 0x38, 0xbe, 0xc5, 0x3c, 0xaa, 0xff, 0x2a, 0x41,
+	0x73, 0x3d, 0x78, 0xf4, 0x1c, 0x80, 0x8f, 0xbe, 0x3c, 0x9c, 0x7b, 0x12, 0xe1, 0xbd, 0x6a, 0x7a,
+	0xb9, 0xb9, 0x2e, 0xa7, 0x52, 0x2a, 0x67, 0x17, 0x94, 0xd0, 0xbd, 0x22, 0xa1, 0xd8, 0xbe, 0x89,
+	0x33, 0x0f, 0x9d, 0x40, 0xc3, 0x77, 0xa9, 0x9b, 0x12, 0x9a, 0xdf, 0xdb, 0xa8, 0x94, 0x7e, 0x20,
+	0x42, 0x78, 0xcd, 0xd1, 0x7f, 0x91, 0xa0, 0x9e, 0xa1, 0xac, 0xd3, 0x3c, 0x4b, 0xfe, 0xa6, 0x70,
+	0xa7, 0x98, 0x6c, 0xe5, 0x3f, 0x4d, 0x96, 0x67, 0xe6, 0x45, 0x55, 0xb1, 0x70, 0xf8, 0x7f, 0x82,
+	0x85, 0x45, 0x45, 0x0f, 0xa5, 0xc8, 0x38, 0xc7, 0xbf, 0x49, 0x4c, 0xc7, 0xfc, 0xe0, 0x1d, 0x68,
+	0xd9, 0x03, 0x7b, 0x7a, 0x6e, 0x3a, 0xb6, 0xf9, 0xbd, 0xad, 0x6e, 0x21, 0x15, 0x1e, 0x65, 0x40,
+	0xcf, 0x18, 0x0c, 0x4d, 0x55, 0x2a, 0x51, 0x7a, 0x93, 0xc9, 0x58, 0xad, 0xa0, 0x36, 0x40, 0x06,
+	0x8c, 0xce, 0x86, 0x6a, 0xb5, 0x44, 0x18, 0x8f, 0xac, 0xef, 0xd4, 0x1a, 0xda, 0x86, 0xc7, 0x19,
+	0x60, 0xbc, 0x36, 0x6c, 0x03, 0xab, 0x32, 0xda, 0x81, 0x4e, 0xb1, 0x46, 0xec, 0xa5, 0xa0, 0x03,
+	0xd0, 0xca, 0xe0, 0xc8, 0x1e, 0x9b, 0x4e, 0x7f, 0x62, 0xd9, 0xa6, 0x65, 0xab, 0xf5, 0xe3, 0x3f,
+	0xd8, 0x58, 0xf3, 0xda, 0x11, 0x82, 0x76, 0x7f, 0x32, 0x9e, 0x60, 0x4e, 0xb7, 0x26, 0x96, 0xa9,
+	0x6e, 0xa1, 0x0f, 0x60, 0xaf, 0xc0, 0x86, 0xd8, 0x34, 0x2d, 0xe7, 0xe2, 0x55, 0xbf, 0x6f, 0x5e,
+	0x5c, 0xa8, 0x12, 0xda, 0x87, 0xdd, 0x22, 0xd8, 0x1b, 0xbf, 0x32, 0x9d, 0x73, 0x3c, 0x3a, 0x33,
+	0xf0, 0x54, 0xad, 0x20, 0x0d, 0xba, 0x45, 0x0c, 0x9b, 0x03, 0x67, 0x60, 0x58, 0x43, 0x13, 0xab,
+	0x55, 0x56, 0x52, 0x11, 0x99, 0x9a, 0xe3, 0xf1, 0xe4, 0xd2, 0xb9, 0x34, 0xb0, 0x35, 0xb2, 0x86,
+	0x6a, 0x0d, 0xed, 0xc1, 0x4e, 0x11, 0xed, 0x4f, 0x0d, 0xcb, 0x19, 0x59, 0xdf, 0x4e, 0x54, 0x79,
+	0x73, 0xd9, 0x10, 0x1b, 0x53, 0xe7, 0xc2, 0xec, 0x4f, 0xac, 0x01, 0xdb, 0x4e, 0x41, 0x5d, 0x50,
+	0x4b, 0xdb, 0x19, 0xd6, 0x60, 0x72, 0xa6, 0xd6, 0x8f, 0xcd, 0x4c, 0xb5, 0xeb, 0xe3, 0xbd, 0x30,
+	0xb0, 0x9d, 0xb7, 0x91, 0x1d, 0x6f, 0x1b, 0x1e, 0x17, 0x58, 0xcf, 0xc0, 0xaa, 0xb4, 0x09, 0x9d,
+	0x8f, 0x4c, 0xb5, 0x72, 0xfa, 0xa7, 0x04, 0xf5, 0x9e, 0xeb, 0xdd, 0x90, 0xc8, 0x47, 0x4f, 0xa1,
+	0x76, 0x1e, 0x44, 0x33, 0x54, 0xfe, 0xa7, 0xf0, 0xcf, 0x9d, 0xfd, 0x4e, 0x09, 0xe1, 0x5f, 0x37,
+	0x13, 0xe8, 0xfc, 0xe3, 0x9d, 0x46, 0x4f, 0x4a, 0x9c, 0xfb, 0x2f, 0xfb, 0xfe, 0xbf, 0x86, 0x53,
+	0xf4, 0x05, 0xc8, 0xfc, 0xee, 0x47, 0xef, 0x95, 0x78, 0xc5, 0x4b, 0xbc, 0xbf, 0x53, 0x82, 0xf3,
+	0x47, 0x42, 0xdf, 0x42, 0x5f, 0x81, 0x22, 0xee, 0xe2, 0x87, 0xd6, 0x6d, 0x4a, 0x39, 0xbb, 0xb5,
+	0xf5, 0xad, 0x5e, 0xeb, 0x87, 0xe2, 0xb3, 0xee, 0x4a, 0xe1, 0x1f, 0x7a, 0xcf, 0xff, 0x0e, 0x00,
+	0x00, 0xff, 0xff, 0x09, 0x99, 0x48, 0x3f, 0xfb, 0x09, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -382,6 +1194,9 @@ const _ = grpc.SupportPackageIsVersion4
 type BackendClient interface {
 	Ping(ctx context.Context, in *Hello, opts ...grpc.CallOption) (*Pong, error)
 	GetSidebarMenus(ctx context.Context, in *GetSidebarMenusReq, opts ...grpc.CallOption) (*GetSidebarMenusRes, error)
+	// --- ysadmin.proto
+	Query(ctx context.Context, in *YsadminReq, opts ...grpc.CallOption) (*QueryRes, error)
+	Commit(ctx context.Context, in *YsadminReq, opts ...grpc.CallOption) (*CommitRes, error)
 }
 
 type backendClient struct {
@@ -410,10 +1225,31 @@ func (c *backendClient) GetSidebarMenus(ctx context.Context, in *GetSidebarMenus
 	return out, nil
 }
 
+func (c *backendClient) Query(ctx context.Context, in *YsadminReq, opts ...grpc.CallOption) (*QueryRes, error) {
+	out := new(QueryRes)
+	err := c.cc.Invoke(ctx, "/dashboard.Backend/Query", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *backendClient) Commit(ctx context.Context, in *YsadminReq, opts ...grpc.CallOption) (*CommitRes, error) {
+	out := new(CommitRes)
+	err := c.cc.Invoke(ctx, "/dashboard.Backend/Commit", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // BackendServer is the server API for Backend service.
 type BackendServer interface {
 	Ping(context.Context, *Hello) (*Pong, error)
 	GetSidebarMenus(context.Context, *GetSidebarMenusReq) (*GetSidebarMenusRes, error)
+	// --- ysadmin.proto
+	Query(context.Context, *YsadminReq) (*QueryRes, error)
+	Commit(context.Context, *YsadminReq) (*CommitRes, error)
 }
 
 // UnimplementedBackendServer can be embedded to have forward compatible implementations.
@@ -425,6 +1261,12 @@ func (*UnimplementedBackendServer) Ping(ctx context.Context, req *Hello) (*Pong,
 }
 func (*UnimplementedBackendServer) GetSidebarMenus(ctx context.Context, req *GetSidebarMenusReq) (*GetSidebarMenusRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSidebarMenus not implemented")
+}
+func (*UnimplementedBackendServer) Query(ctx context.Context, req *YsadminReq) (*QueryRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Query not implemented")
+}
+func (*UnimplementedBackendServer) Commit(ctx context.Context, req *YsadminReq) (*CommitRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Commit not implemented")
 }
 
 func RegisterBackendServer(s *grpc.Server, srv BackendServer) {
@@ -467,6 +1309,42 @@ func _Backend_GetSidebarMenus_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Backend_Query_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(YsadminReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BackendServer).Query(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/dashboard.Backend/Query",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BackendServer).Query(ctx, req.(*YsadminReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Backend_Commit_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(YsadminReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BackendServer).Commit(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/dashboard.Backend/Commit",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BackendServer).Commit(ctx, req.(*YsadminReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Backend_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "dashboard.Backend",
 	HandlerType: (*BackendServer)(nil),
@@ -478,6 +1356,14 @@ var _Backend_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetSidebarMenus",
 			Handler:    _Backend_GetSidebarMenus_Handler,
+		},
+		{
+			MethodName: "Query",
+			Handler:    _Backend_Query_Handler,
+		},
+		{
+			MethodName: "Commit",
+			Handler:    _Backend_Commit_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

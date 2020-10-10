@@ -1,9 +1,16 @@
 package v
 
 import (
+	"strings"
+
 	"github.com/hexops/vecty"
 	"github.com/hexops/vecty/elem"
+	"github.com/hexops/vecty/event"
 	"github.com/hexops/vecty/prop"
+
+	"github.com/aclisp/godashboard/frontend/s"
+	"github.com/aclisp/godashboard/frontend/s/action"
+	"github.com/aclisp/godashboard/frontend/s/dispatcher"
 )
 
 // Topbar is the main page top bar
@@ -99,6 +106,17 @@ func (b *Topbar) renderSearch(formClass ...string) *vecty.HTML {
 }
 
 func (b *Topbar) renderSelect(formClass ...string) *vecty.HTML {
+	options := make(vecty.List, len(s.Gateways))
+	for i, gateway := range s.Gateways {
+		options[i] = elem.Option(
+			vecty.Markup(
+				prop.Value(strings.Join(gateway.ID[:], ",")),
+				vecty.MarkupIf(gateway.Selected, vecty.Property("selected", "selected")),
+			),
+			vecty.Text(gateway.Name),
+		)
+	}
+
 	return elem.Form(
 		vecty.Markup(vecty.Class(formClass...)),
 		elem.Div(
@@ -107,33 +125,22 @@ func (b *Topbar) renderSelect(formClass ...string) *vecty.HTML {
 				vecty.Markup(vecty.Class("input-group-prepend")),
 				elem.Label(
 					vecty.Markup(prop.For("selectGateway"), vecty.Class("input-group-text", "bg-light")),
-					vecty.Text("选择网关:"),
+					vecty.Text("Select Gateway:"),
 				),
 			),
 			elem.Select(
 				vecty.Markup(
 					prop.ID("selectGateway"),
 					vecty.Class("form-control", "bg-light", "small", "custom-select"),
+					event.Change(func(e *vecty.Event) {
+						var changeGateway action.ChangeGateway
+						for i, s := range strings.SplitN(e.Target.Get("value").String(), ",", 2) {
+							changeGateway.GatewayID[i] = s
+						}
+						dispatcher.Dispatch(&changeGateway)
+					}).PreventDefault(),
 				),
-				elem.Option(
-					vecty.Markup(
-						vecty.Property("selected", "selected"),
-						prop.Value("1"),
-					),
-					vecty.Text("印尼"),
-				),
-				elem.Option(
-					vecty.Markup(
-						prop.Value("2"),
-					),
-					vecty.Text("新加坡"),
-				),
-				elem.Option(
-					vecty.Markup(
-						prop.Value("3"),
-					),
-					vecty.Text("美国"),
-				),
+				options,
 			),
 		),
 	)

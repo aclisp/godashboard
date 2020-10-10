@@ -54,11 +54,11 @@ func (b *Sidebar) Render() vecty.ComponentOrHTML {
 			data: &dashboard.SidebarMenu{
 				Id:     "site-settings",
 				FaIcon: "fa-cog",
-				Text:   "设置",
+				Text:   "Settings",
 				Groups: []*dashboard.SidebarGroup{
 					{
 						Items: []*dashboard.SidebarEntry{
-							{Text: "导航栏菜单管理", Route: "/sidebar-menus"},
+							{Text: "Sidebar Menus", Route: "/sidebar-menus"},
 						},
 					},
 				},

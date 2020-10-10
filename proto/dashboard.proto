@@ -9,6 +9,10 @@ option go_package = "dashboard";
 service Backend {
     rpc Ping(Hello) returns (Pong);
     rpc GetSidebarMenus(GetSidebarMenusReq) returns (GetSidebarMenusRes);
+
+    // --- ysadmin.proto
+    rpc Query(YsadminReq) returns (QueryRes) {}
+    rpc Commit(YsadminReq) returns (CommitRes) {}
 }
 
 message Hello {
@@ -41,4 +45,108 @@ message GetSidebarMenusReq {
 
 message GetSidebarMenusRes {
     repeated SidebarMenu menus = 1;
+}
+
+// --- common.proto
+
+message Result {
+    int64 errcode = 1;
+    string errmsg = 2;
+}
+
+// --- ysadmin.proto
+
+message YsadminReq {
+    string cmd = 1;  //通过cmd来区分具体是查什么
+    int64 uid = 2;
+    string date = 3;
+    string start_date = 4;
+    string end_date = 5;
+    string expand = 6;  //扩展字段
+    string token = 7;   //敏感数据查询或者commit时用的token
+    string sname = 8; //sname
+    string cid = 9; //房间id，频道id
+    string month = 10; // 2020-05
+    string week = 11; // 2020-07-20
+    int32 page = 12; //第几页
+    string region = 13; //大区
+    string country = 14; //国家
+    string area = 15; //区域
+    string click_value = 20; //点击的值，如果是点击查询用这个
+}
+
+message QueryRes {
+    Result result = 1;
+    repeated TableInfo tables = 2;
+    repeated ChartInfo charts = 3;
+    int32 page = 4; //当前为第几页，当page不为0说明有分页
+}
+
+message CommitRes {
+    Result result = 1;
+}
+
+enum TdType {
+    TDTYPE_TEXT = 0;  //普通文本
+    TDTYPE_BADGE = 1;  //徽章
+    TDTYPE_BOOL = 2;  //Bool类型
+    TDTYPE_IMG = 3;  //图片
+    TDTYPE_LINK = 4;  //链接
+    TDTYPE_AVATAR = 5; //头像
+    TDTYPE_IMG_TEXT = 6; //图片带个文本
+    TDTYPE_IMG_TITLE_CONTENT = 7; //图片带文本内容
+}
+
+// 颜色类型
+enum ColorType {
+    COLORTYPE_NONE = 0;  //无
+    COLORTYPE_GREEN_SUCCESS = 1;  //绿色，成功
+    COLORTYPE_BLUE_PRIMARY = 2;  //蓝色，信息
+    COLORTYPE_RED_DANGER = 3;  //红色，严重，错误
+    COLORTYPE_YELLOW_WARNING = 4;  //黄色，警告
+    COLORTYPE_CYAN_INFO = 5;  //青色, #00FFFF	0,255,255
+    COLORTYPE_GRAY_SECONDARY = 6; //灰色，次要
+    COLORTYPE_RANDOM = 7;  //随机颜色, chart可用
+}
+
+message TdInfo {
+    TdType td_type = 1;
+    string content = 2;
+    bool is_true = 3;
+    string link = 4;
+    ColorType color = 5;
+    int32 width = 6;
+    int32 height = 7;
+    string title = 8;
+    bool clickable = 9;
+}
+
+message TdRow {
+    repeated TdInfo infos = 1;
+}
+
+message TableInfo {
+    string name = 1;
+    repeated string ths = 2;
+    repeated  TdRow rows = 3;
+}
+
+enum ChartType {
+    CHARTTYPE_LINE = 0;
+    CHARTTYPE_BAR = 1;
+    CHARTTYPE_PIE = 2;
+}
+
+message ChartInfo {
+    ChartType chart_type = 1;
+    string name = 2;
+    repeated string labels = 3;
+    repeated Dataset datasets = 4;  //如果是Pie饼状的话，最好只传一个
+}
+
+message Dataset {
+    string label = 1;
+    ColorType color = 2; // Line折线，Bar柱状用这个
+    repeated int64 datas = 3;
+    repeated ColorType colors = 4;  // Pie饼状用这个
 }
