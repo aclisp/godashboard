@@ -21,9 +21,9 @@ type dynamicViewUpdater struct {
 
 func (u *dynamicViewUpdater) queryWithTimeout(c dashboard.BackendClient, timeout time.Duration) (
 	req *dashboard.QueryReq, res *dashboard.QueryRes, sta *status.Status) {
-	target := CurrentPackageEndpoint
-	env := CurrentGatewayID[0]
-	gate := CurrentGatewayID[1]
+	target := State.CurrentPackageEndpoint()
+	env := State.CurrentGatewayID()[0]
+	gate := State.CurrentGatewayID()[1]
 
 	req = &dashboard.QueryReq{
 		Package:     target.PackageName,

@@ -27,8 +27,8 @@ func (d *DynamicView) getPackageAndEndpoint() (packageName, endpointName string)
 	// packageName = vars["package"]
 	// endpointName = vars["endpoint"]
 	// ...here we use state instead
-	packageName = s.CurrentPackageEndpoint.PackageName
-	endpointName = s.CurrentPackageEndpoint.EndpointName
+	packageName = s.State.CurrentPackageEndpoint().PackageName
+	endpointName = s.State.CurrentPackageEndpoint().EndpointName
 	return
 }
 
@@ -42,9 +42,9 @@ func (d *DynamicView) Render() vecty.ComponentOrHTML {
 		})
 	}
 
-	data := s.PackageEndpointData[s.CurrentPackageEndpoint]
+	data := s.Backend.CurrentPackageEndpointData()
 	var progress, status, queryRes vecty.ComponentOrHTML
-	if s.SyncOngoing {
+	if s.State.SyncOngoing() {
 		progress = d.renderProgress()
 	} else {
 		if data.Status != nil {
@@ -83,7 +83,7 @@ func (d *DynamicView) Render() vecty.ComponentOrHTML {
 			vecty.Markup(vecty.Class("mb-4")),
 			vecty.Text(fmt.Sprintf("package is %q, endpoint is %q, gateway is %v",
 				"net.ihago."+strings.ReplaceAll(packageName, "-", "."),
-				endpointName, s.CurrentGatewayID)),
+				endpointName, s.State.CurrentGatewayID())),
 		),
 		progress,
 		status,
@@ -98,7 +98,7 @@ func (d *DynamicView) Mount() {
 	endpointName := vars["endpoint"]
 
 	dispatcher.Dispatch(&action.StartDynamicViewUpdating{})
-	if !s.SyncOngoing {
+	if !s.State.SyncOngoing() {
 		dispatcher.Dispatch(&action.ChangePackageEndpoint{Route: fmt.Sprintf("/go/%s/%s", packageName, endpointName)})
 		dispatcher.Dispatch(&action.SyncDynamicViewData{})
 	}
