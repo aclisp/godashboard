@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"io/ioutil"
 	"os"
 	"syscall/js"
@@ -10,6 +11,8 @@ import (
 	"google.golang.org/grpc/grpclog"
 
 	"github.com/aclisp/godashboard/frontend/s"
+	"github.com/aclisp/godashboard/frontend/s/action"
+	"github.com/aclisp/godashboard/frontend/s/dispatcher"
 	"github.com/aclisp/godashboard/frontend/v"
 )
 
@@ -49,8 +52,24 @@ func removeContentLoadingIndicator() {
 func main() {
 	removeContentLoadingIndicator()
 	s.Init()
+	attachLocalStorage()
 	if err := vecty.RenderInto("body", &v.Body{}); err != nil {
 		panic(err)
 	}
 	select {} // run Go forever
+}
+
+func attachLocalStorage() {
+	s.Listeners.Add(nil, func() {
+		data, err := json.Marshal(s.State)
+		if err != nil {
+			grpclog.Errorf("failed to marshal state: %v", err)
+			return
+		}
+		js.Global().Get("localStorage").Call("setItem", "state", string(data))
+	})
+
+	if data := js.Global().Get("localStorage").Call("getItem", "state"); !data.IsNull() {
+		dispatcher.Dispatch(&action.ReplaceState{StateJSON: data.String()})
+	}
 }

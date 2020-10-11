@@ -106,8 +106,8 @@ func (b *Topbar) renderSearch(formClass ...string) *vecty.HTML {
 }
 
 func (b *Topbar) renderSelect(formClass ...string) *vecty.HTML {
-	options := make(vecty.List, len(s.Gateways))
-	for i, gateway := range s.Gateways {
+	options := make(vecty.List, len(s.State.Gateways()))
+	for i, gateway := range s.State.Gateways() {
 		options[i] = elem.Option(
 			vecty.Markup(
 				prop.Value(strings.Join(gateway.ID[:], ",")),

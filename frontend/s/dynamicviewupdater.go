@@ -100,13 +100,20 @@ func (u *dynamicViewUpdater) stop() {
 
 	u.cancel()
 	u.started = false
+	u.update = nil
 }
 
-func (u *dynamicViewUpdater) sync() {
-	u.start()
+func (u *dynamicViewUpdater) sync(startUpdater bool) {
+	if startUpdater {
+		u.start()
+	}
 	select {
 	case u.update <- struct{}{}:
 	default:
-		grpclog.Warningf("dynamicViewUpdater.sync skipped because there are %d outstanding RPC", len(u.update))
+		if u.update == nil {
+			grpclog.Warningf("dynamicViewUpdater.sync skipped because updater is stopped")
+		} else {
+			grpclog.Warningf("dynamicViewUpdater.sync skipped because there are %d outstanding RPC", len(u.update))
+		}
 	}
 }

@@ -46,6 +46,7 @@ type StopDynamicViewUpdating struct {
 
 // SyncDynamicViewData sync data with backend
 type SyncDynamicViewData struct {
+	StartUpdater bool
 }
 
 // SyncDynamicViewDataDone is dispatched on sync done
@@ -66,4 +67,9 @@ func (a SyncDynamicViewDataDone) SaveTo(store map[model.PackageEndpoint]model.Pa
 		QueryRes: a.Res,
 	}
 	store[key] = val
+}
+
+// ReplaceState replaces local state with the new state
+type ReplaceState struct {
+	StateJSON string
 }

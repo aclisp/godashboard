@@ -69,7 +69,7 @@ func (t *TableContainer) renderTable() *vecty.HTML {
 
 // Mount is called when the table is mounted
 func (t *TableContainer) Mount() {
-	fmt.Printf("TableContainer.Mount: id=%s\n", t.id)
+	//fmt.Printf("TableContainer.Mount: id=%s\n", t.id)
 	script := fmt.Sprintf(`$('#%s').DataTable();`, t.id)
 	if js.Global().Get("jQuery").Truthy() {
 		js.Global().Call("eval", script)

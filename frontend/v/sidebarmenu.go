@@ -80,7 +80,7 @@ func (m *SidebarMenu) renderGroup(group *dashboard.SidebarGroup, index int) vect
 				event.Click(func(e *vecty.Event) {
 					if strings.HasPrefix(item.Route, "/go/") {
 						dispatcher.Dispatch(&action.ChangePackageEndpoint{Route: item.Route})
-						dispatcher.Dispatch(&action.SyncDynamicViewData{})
+						dispatcher.Dispatch(&action.SyncDynamicViewData{StartUpdater: true})
 					}
 					router.Redirect(item.Route)
 				}).PreventDefault(),

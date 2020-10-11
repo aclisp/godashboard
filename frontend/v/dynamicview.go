@@ -61,7 +61,7 @@ func (d *DynamicView) Render() vecty.ComponentOrHTML {
 			vecty.Markup(vecty.Class("d-sm-flex", "align-items-center", "justify-content-between", "mb-4")),
 			elem.Heading1(
 				vecty.Markup(vecty.Class("h3", "mb-0", "text-gray-800")),
-				vecty.Text("Dynamic View"),
+				vecty.Text("Adaptive View"),
 			),
 			elem.Anchor(
 				vecty.Markup(
