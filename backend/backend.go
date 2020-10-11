@@ -2,6 +2,7 @@ package backend
 
 import (
 	"context"
+	"strings"
 
 	"google.golang.org/grpc/codes"
 
@@ -31,20 +32,15 @@ func (b *Backend) GetSidebarMenus(ctx context.Context, req *dashboard.GetSidebar
 	return &dashboard.GetSidebarMenusRes{
 		Menus: []*dashboard.SidebarMenu{
 			{
-				Id:     "package1",
-				FaIcon: "fa-cog",
-				Text:   "Package 1",
+				Id:     "money-api-redpacket",
+				FaIcon: "fa-envelope",
+				Text:   "红包",
 				Groups: []*dashboard.SidebarGroup{
 					{
-						Text: "Service 1:",
 						Items: []*dashboard.SidebarEntry{
 							{
-								Text:  "Method 1",
-								Route: "/go/package1/Service1-Method1",
-							},
-							{
-								Text:  "Method 2",
-								Route: "/go/package1/Service1-Method2",
+								Text:  "档位配置",
+								Route: "/go/money-api-redpacket/Config",
 							},
 						},
 					},
@@ -121,37 +117,51 @@ func (b *Backend) GetSidebarMenus(ctx context.Context, req *dashboard.GetSidebar
 
 // Query data
 func (b *Backend) Query(ctx context.Context, req *dashboard.QueryReq) (*dashboard.QueryRes, error) {
-	return &dashboard.QueryRes{
-		Tables: []*dashboard.TableInfo{
-			{
-				Name: "Table One",
-				Ths:  []string{"Column One", "Column Two", "Column Three"},
-				Rows: []*dashboard.TdRow{
-					{
-						Infos: []*dashboard.TdInfo{
-							{Content: "aaa"},
-							{Content: "bbb"},
-							{Content: "ccc"},
+	//logger.Debugf("Backend.Query: req: %v", req)
+	res := new(dashboard.QueryRes)
+	err := RoundTrip(req.YsadminReq, Link{
+		FromService: "ysadminv2",
+		URL:         RegionalURL[req.Environment][req.GatewayCode],
+		ToService:   "net.ihago." + strings.ReplaceAll(req.Package, "-", "."),
+		Method:      "YsadminRPCService.Query",
+	}, res)
+	if err != nil {
+		return nil, newStatus(codes.Unavailable, err.Error()).err()
+	}
+	return res, nil
+	/*
+		return &dashboard.QueryRes{
+			Tables: []*dashboard.TableInfo{
+				{
+					Name: "Table One",
+					Ths:  []string{"Column One", "Column Two", "Column Three"},
+					Rows: []*dashboard.TdRow{
+						{
+							Infos: []*dashboard.TdInfo{
+								{Content: "aaa"},
+								{Content: "bbb"},
+								{Content: "ccc"},
+							},
 						},
-					},
-					{
-						Infos: []*dashboard.TdInfo{
-							{Content: "xxx"},
-							{Content: "yyy"},
-							{Content: "zzz"},
+						{
+							Infos: []*dashboard.TdInfo{
+								{Content: "xxx"},
+								{Content: "yyy"},
+								{Content: "zzz"},
+							},
 						},
-					},
-					{
-						Infos: []*dashboard.TdInfo{
-							{Content: "111"},
-							{Content: "222"},
-							{Content: "333"},
+						{
+							Infos: []*dashboard.TdInfo{
+								{Content: "111"},
+								{Content: "222"},
+								{Content: "333"},
+							},
 						},
 					},
 				},
 			},
-		},
-	}, nil
+		}, nil
+	*/
 }
 
 // Commit data

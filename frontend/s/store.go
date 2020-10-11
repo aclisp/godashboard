@@ -25,6 +25,9 @@ var (
 	// CurrentPackageEndpoint is the current package-endpoint
 	CurrentPackageEndpoint model.PackageEndpoint
 
+	// SyncOngoing is true when there is an outstanding sync data request
+	SyncOngoing bool
+
 	// Listeners is the listeners that will be invoked when the store changes.
 	Listeners = storeutil.NewListenerRegistry()
 
@@ -56,12 +59,17 @@ func actions(act interface{}) {
 
 	case *action.StartDynamicViewUpdating:
 		updater.start()
+
 	case *action.StopDynamicViewUpdating:
 		updater.stop()
+
 	case *action.SyncDynamicViewData:
+		SyncOngoing = true
 		updater.sync()
+
 	case *action.SyncDynamicViewDataDone:
 		a.SaveTo(PackageEndpointData)
+		SyncOngoing = false
 
 	default:
 		return // don't fire listeners

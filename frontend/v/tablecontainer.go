@@ -17,7 +17,7 @@ type TableContainer struct {
 	vecty.Core
 
 	id   string
-	data *dashboard.TableInfo
+	Data *dashboard.TableInfo `vecty:"prop"`
 }
 
 // Render a data table
@@ -28,7 +28,7 @@ func (t *TableContainer) Render() vecty.ComponentOrHTML {
 			vecty.Markup(vecty.Class("card-header", "py-3")),
 			elem.Heading6(
 				vecty.Markup(vecty.Class("m-0", "font-weight-bold", "text-primary")),
-				vecty.Text(t.data.Name),
+				vecty.Text(t.Data.Name),
 			),
 		),
 		elem.Div(
@@ -42,16 +42,16 @@ func (t *TableContainer) Render() vecty.ComponentOrHTML {
 }
 
 func (t *TableContainer) renderTable() *vecty.HTML {
-	rows := make(vecty.List, 0, len(t.data.Rows))
-	for _, row := range t.data.Rows {
+	rows := make(vecty.List, 0, len(t.Data.Rows))
+	for _, row := range t.Data.Rows {
 		cells := make(vecty.List, 0, len(row.Infos))
 		for _, cell := range row.Infos {
 			cells = append(cells, elem.TableData(vecty.Text(cell.Content)))
 		}
 		rows = append(rows, elem.TableRow(cells))
 	}
-	heads := make(vecty.List, 0, len(t.data.Ths))
-	for _, head := range t.data.Ths {
+	heads := make(vecty.List, 0, len(t.Data.Ths))
+	for _, head := range t.Data.Ths {
 		heads = append(heads, elem.TableHeader(vecty.Text(head)))
 	}
 	return elem.Table(
@@ -69,6 +69,7 @@ func (t *TableContainer) renderTable() *vecty.HTML {
 
 // Mount is called when the table is mounted
 func (t *TableContainer) Mount() {
+	fmt.Printf("TableContainer.Mount: id=%s\n", t.id)
 	script := fmt.Sprintf(`$('#%s').DataTable();`, t.id)
 	if js.Global().Get("jQuery").Truthy() {
 		js.Global().Call("eval", script)

@@ -103,7 +103,7 @@ func RoundTrip(req proto.Message, link Link, res proto.Message) (err error) {
 	reqObj.Header.Set("X-Micro-From-Service", link.FromService)
 	reqObj.Header.Set("X-Ymicro-Api-Service-Name", link.ToService)
 	reqObj.Header.Set("X-Ymicro-Api-Method-Name", link.Method)
-	logger.Debugf("send http request with header: %v , body: %v", reqObj.Header, string(reqBody))
+	//logger.Debugf("send http request with header: %v , body: %v", reqObj.Header, string(reqBody))
 
 	if respObj, err = HTTPClient.Do(reqObj); err != nil {
 		return fmt.Errorf("do http roundtrip: %w", err)
@@ -113,7 +113,7 @@ func RoundTrip(req proto.Message, link Link, res proto.Message) (err error) {
 	if respBody, err = ioutil.ReadAll(respObj.Body); err != nil {
 		return fmt.Errorf("read http response: %w", err)
 	}
-	logger.Debugf("got http response body: %v", string(respBody))
+	//logger.Debugf("got http response body: %v", string(respBody))
 
 	if err = json.Unmarshal(respBody, res); err != nil {
 		return fmt.Errorf("unmarshal response from json: %w", err)

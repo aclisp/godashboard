@@ -2,6 +2,7 @@ package v
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/hexops/vecty"
 	"github.com/hexops/vecty/elem"
@@ -42,12 +43,16 @@ func (d *DynamicView) Render() vecty.ComponentOrHTML {
 	}
 
 	data := s.PackageEndpointData[s.CurrentPackageEndpoint]
-	var status, queryRes vecty.ComponentOrHTML
-	if data.Status != nil {
-		status = d.renderStatus(data.Status)
-	}
-	if data.QueryRes != nil {
-		queryRes = d.renderQueryRes(data.QueryRes)
+	var progress, status, queryRes vecty.ComponentOrHTML
+	if s.SyncOngoing {
+		progress = d.renderProgress()
+	} else {
+		if data.Status != nil {
+			status = d.renderStatus(data.Status)
+		}
+		if data.QueryRes != nil {
+			queryRes = d.renderQueryRes(data.QueryRes)
+		}
 	}
 
 	return elem.Div(
@@ -76,8 +81,11 @@ func (d *DynamicView) Render() vecty.ComponentOrHTML {
 		),
 		elem.Paragraph(
 			vecty.Markup(vecty.Class("mb-4")),
-			vecty.Text(fmt.Sprintf("package is %q, endpoint is %q, gateway is %v", packageName, endpointName, s.CurrentGatewayID)),
+			vecty.Text(fmt.Sprintf("package is %q, endpoint is %q, gateway is %v",
+				"net.ihago."+strings.ReplaceAll(packageName, "-", "."),
+				endpointName, s.CurrentGatewayID)),
 		),
+		progress,
 		status,
 		queryRes,
 	)
@@ -89,14 +97,23 @@ func (d *DynamicView) Mount() {
 	packageName := vars["package"]
 	endpointName := vars["endpoint"]
 
-	dispatcher.Dispatch(&action.ChangePackageEndpoint{Route: fmt.Sprintf("/go/%s/%s", packageName, endpointName)})
 	dispatcher.Dispatch(&action.StartDynamicViewUpdating{})
-	dispatcher.Dispatch(&action.SyncDynamicViewData{})
+	if !s.SyncOngoing {
+		dispatcher.Dispatch(&action.ChangePackageEndpoint{Route: fmt.Sprintf("/go/%s/%s", packageName, endpointName)})
+		dispatcher.Dispatch(&action.SyncDynamicViewData{})
+	}
 }
 
 // Unmount is called when the view is unmounted
 func (d *DynamicView) Unmount() {
 	dispatcher.Dispatch(&action.StopDynamicViewUpdating{})
+}
+
+func (d *DynamicView) renderProgress() *vecty.HTML {
+	return elem.Paragraph(
+		vecty.Markup(vecty.Class("mb-4")),
+		vecty.Text("Syncing data, please wait..."),
+	)
 }
 
 func (d *DynamicView) renderStatus(st *status.Status) *vecty.HTML {
@@ -107,8 +124,12 @@ func (d *DynamicView) renderStatus(st *status.Status) *vecty.HTML {
 }
 
 func (d *DynamicView) renderQueryRes(res *dashboard.QueryRes) vecty.ComponentOrHTML {
-	return &TableContainer{
-		id:   "dataTable",
-		data: res.Tables[0],
+	tables := make(vecty.List, len(res.Tables))
+	for i := range res.Tables {
+		tables[i] = &TableContainer{
+			id:   fmt.Sprintf("dataTable-%d", i),
+			Data: res.Tables[i],
+		}
 	}
+	return tables
 }

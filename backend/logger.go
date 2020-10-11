@@ -19,4 +19,6 @@ func init() {
 		TimestampFormat: time.RFC3339Nano,
 		DisableSorting:  true,
 	})
+
+	logger = Logger
 }
