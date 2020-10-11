@@ -46,7 +46,7 @@ func (t *TableContainer) renderTable() *vecty.HTML {
 	for _, row := range t.Data.Rows {
 		cells := make(vecty.List, 0, len(row.Infos))
 		for _, cell := range row.Infos {
-			cells = append(cells, elem.TableData(vecty.Text(cell.Content)))
+			cells = append(cells, t.renderCell(cell))
 		}
 		rows = append(rows, elem.TableRow(cells))
 	}
@@ -74,4 +74,17 @@ func (t *TableContainer) Mount() {
 	if js.Global().Get("jQuery").Truthy() {
 		js.Global().Call("eval", script)
 	}
+}
+
+func (t *TableContainer) renderCell(cell *dashboard.TdInfo) *vecty.HTML {
+	var td *vecty.HTML
+	switch cell.TdType {
+	case dashboard.TdType_TDTYPE_IMG, dashboard.TdType_TDTYPE_AVATAR:
+		td = elem.Image(vecty.Markup(prop.Src(cell.Content),
+			style.Height(style.Px(64)),
+			style.Width(style.Px(64))))
+	default:
+		td = vecty.Text(cell.Content)
+	}
+	return elem.TableData(td)
 }
