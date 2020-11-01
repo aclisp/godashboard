@@ -6,7 +6,7 @@ require (
 	github.com/golang/protobuf v1.4.2
 	github.com/gorilla/mux v1.8.0
 	github.com/gorilla/websocket v1.4.2 // indirect
-	github.com/hexops/vecty v0.5.1-0.20200925084631-56dda858f26b // indirect
+	github.com/hexops/vecty v0.5.1-0.20200925084631-56dda858f26b
 	github.com/improbable-eng/grpc-web v0.9.6
 	github.com/rs/cors v1.7.0 // indirect
 	github.com/shurcooL/httpfs v0.0.0-20190707220628-8d4bc4ba7749 // indirect

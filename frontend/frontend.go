@@ -3,13 +3,15 @@ package main
 import (
 	"context"
 	"io/ioutil"
+	"os"
 	"syscall/js"
 
+	"github.com/hexops/vecty"
 	_ "google.golang.org/genproto/googleapis/rpc/errdetails"
-	"google.golang.org/grpc"
 	"google.golang.org/grpc/grpclog"
 	"google.golang.org/grpc/status"
 
+	"github.com/aclisp/godashboard/frontend/view"
 	dashboard "github.com/aclisp/godashboard/proto"
 )
 
@@ -34,10 +36,18 @@ func (d DivWriter) Write(p []byte) (n int, err error) {
 	return len(p), nil
 }
 
-func init() {
+func grpcSetDivLogger() {
 	document = js.Global().Get("document")
 	div := document.Call("getElementById", "target")
 	grpclog.SetLoggerV2(grpclog.NewLoggerV2(DivWriter(div), ioutil.Discard, ioutil.Discard))
+}
+
+func grpcSetConsoleLogger() {
+	grpclog.SetLoggerV2(grpclog.NewLoggerV2(os.Stdout, ioutil.Discard, ioutil.Discard))
+}
+
+func init() {
+	grpcSetConsoleLogger()
 }
 
 func removeContentLoadingIndicator() {
@@ -49,19 +59,8 @@ func removeContentLoadingIndicator() {
 func main() {
 	removeContentLoadingIndicator()
 
-	cc, err := grpc.Dial("")
-	if err != nil {
-		grpclog.Println(err)
-		return
-	}
-	client := dashboard.NewBackendClient(cc)
-
-	// example backend communication
-	pingBackend(client, "Hello-World")
-	// example backend communication for error handling
-	pingBackend(client, "Expect-Error")
-
-	grpclog.Println("finished")
+	vecty.SetTitle("Go Dashboard")
+	vecty.RenderBody(&view.Body{})
 }
 
 func pingBackend(c dashboard.BackendClient, message string) {

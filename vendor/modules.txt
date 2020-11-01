@@ -13,6 +13,8 @@ github.com/gorilla/mux
 github.com/gorilla/websocket
 # github.com/hexops/vecty v0.5.1-0.20200925084631-56dda858f26b
 ## explicit
+github.com/hexops/vecty
+github.com/hexops/vecty/elem
 # github.com/improbable-eng/grpc-web v0.9.6
 ## explicit
 github.com/improbable-eng/grpc-web/go/grpcweb
