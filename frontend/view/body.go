@@ -13,6 +13,12 @@ type Body struct {
 // Render implements the vecty.Component interface.
 func (b *Body) Render() vecty.ComponentOrHTML {
 	return elem.Body(
-		vecty.Text("Hello Vecty!"),
+		elem.Section(
+			vecty.Markup(vecty.Class("hero", "is-primary", "is-fullheight")),
+			elem.Div(
+				vecty.Markup(vecty.Class("hero-body")),
+				vecty.Text("Login"),
+			),
+		),
 	)
 }
