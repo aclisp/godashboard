@@ -1,3 +1,5 @@
+# github.com/cathalgarvey/fmtless v0.0.0-20160509115409-5077ea938891
+github.com/cathalgarvey/fmtless
 # github.com/golang/protobuf v1.4.2
 ## explicit
 github.com/golang/protobuf/proto
@@ -15,6 +17,8 @@ github.com/gorilla/websocket
 ## explicit
 github.com/hexops/vecty
 github.com/hexops/vecty/elem
+github.com/hexops/vecty/event
+github.com/hexops/vecty/prop
 # github.com/improbable-eng/grpc-web v0.9.6
 ## explicit
 github.com/improbable-eng/grpc-web/go/grpcweb
@@ -111,4 +115,5 @@ google.golang.org/protobuf/types/known/durationpb
 google.golang.org/protobuf/types/known/timestamppb
 # marwan.io/vecty-router v0.0.0-20200914150808-f30c81f0deb5
 ## explicit
+marwan.io/vecty-router
 # google.golang.org/grpc => github.com/aclisp/grpc-go v1.2.1-0.20180625151142-1f109e898476

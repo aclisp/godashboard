@@ -48,6 +48,7 @@ func main() {
 		wasmContentTypeSetter(http.FileServer(bundle.Assets)).ServeHTTP(resp, req)
 	}
 	router := mux.NewRouter()
+	router.PathPrefix("/go/").HandlerFunc(indexHandler)
 	router.PathPrefix("/debug/").Handler(http.DefaultServeMux)
 	router.PathPrefix("/").Handler(http.HandlerFunc(handler))
 
@@ -78,4 +79,14 @@ func wasmContentTypeSetter(fn http.Handler) http.HandlerFunc {
 		}
 		fn.ServeHTTP(w, req)
 	}
+}
+
+func indexHandler(w http.ResponseWriter, req *http.Request) {
+	f, err := bundle.Assets.Open("/index.html")
+	if err != nil {
+		logger.Errorf("bundle.Assets.Open(\"/index.html\"): %v", err)
+		return
+	}
+	http.ServeContent(w, req, "index.html", time.Time{}, f)
+	_ = f.Close()
 }

@@ -15,7 +15,7 @@ require (
 	golang.org/x/net v0.0.0-20200925080053-05aa5d4ee321
 	google.golang.org/genproto v0.0.0-20200925023002-c2d885f95484
 	google.golang.org/grpc v1.27.0
-	marwan.io/vecty-router v0.0.0-20200914150808-f30c81f0deb5 // indirect
+	marwan.io/vecty-router v0.0.0-20200914150808-f30c81f0deb5
 )
 
 replace google.golang.org/grpc => github.com/aclisp/grpc-go v1.2.1-0.20180625151142-1f109e898476

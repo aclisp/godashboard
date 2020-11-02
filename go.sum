@@ -1,5 +1,6 @@
 github.com/aclisp/grpc-go v1.2.1-0.20180625151142-1f109e898476 h1:Pr3+1w4iQl6kCPSsTbAtY2kZGKvO79f8tHfQv3iL2Mc=
 github.com/aclisp/grpc-go v1.2.1-0.20180625151142-1f109e898476/go.mod h1:NmojWzegpykG87H5EIdmvZJqR2YZwf+WgOuhrL31IPc=
+github.com/cathalgarvey/fmtless v0.0.0-20160509115409-5077ea938891 h1:xI+8e6zab6gwsycpo0sENGYF8DmagNYnyOxpRhnA1eE=
 github.com/cathalgarvey/fmtless v0.0.0-20160509115409-5077ea938891/go.mod h1:47i2Tts0Ndudv8RXhALRmYzK4gB8Qh39wOGy5H9FIOU=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
@@ -72,4 +73,5 @@ google.golang.org/protobuf v1.23.1-0.20200526195155-81db48ad09cc/go.mod h1:EGpAD
 google.golang.org/protobuf v1.24.0 h1:UhZDfRO8JRQru4/+LlLE0BRKGF8L+PICnvYZmx/fEGA=
 google.golang.org/protobuf v1.24.0/go.mod h1:r/3tXBNzIEhYS9I1OUVjXDlt8tc493IdKGjtUeSXeh4=
 honnef.co/go/tools v0.0.0-20190523083050-ea95bdfd59fc/go.mod h1:rf3lG4BRIbNafJWhAfAdb/ePZxsR/4RtNHQocxwk9r4=
+marwan.io/vecty-router v0.0.0-20200914150808-f30c81f0deb5 h1:4bekj2TqBoaa3E+joVclRFp42gZ/BhYvNjMbl5PhO6Y=
 marwan.io/vecty-router v0.0.0-20200914150808-f30c81f0deb5/go.mod h1:g9n+vgkrJ5LqA3izSSSHoyazlE12QeJVPaDZUGw3FKY=

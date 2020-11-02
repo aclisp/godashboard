@@ -3,6 +3,7 @@ package view
 import (
 	"github.com/hexops/vecty"
 	"github.com/hexops/vecty/elem"
+	router "marwan.io/vecty-router"
 )
 
 // Body renders the <body> tag
@@ -11,14 +12,9 @@ type Body struct {
 }
 
 // Render implements the vecty.Component interface.
-func (b *Body) Render() vecty.ComponentOrHTML {
+func (c *Body) Render() vecty.ComponentOrHTML {
 	return elem.Body(
-		elem.Section(
-			vecty.Markup(vecty.Class("hero", "is-primary", "is-fullheight")),
-			elem.Div(
-				vecty.Markup(vecty.Class("hero-body")),
-				vecty.Text("Login"),
-			),
-		),
+		router.NewRoute("/go/login", &Login{}, router.NewRouteOpts{ExactMatch: true}),
+		router.NotFoundHandler(&NotFound{}),
 	)
 }
