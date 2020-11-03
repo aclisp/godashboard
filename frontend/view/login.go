@@ -3,6 +3,7 @@ package view
 import (
 	"github.com/hexops/vecty"
 	"github.com/hexops/vecty/elem"
+	"github.com/hexops/vecty/prop"
 )
 
 // Login .
@@ -13,25 +14,15 @@ type Login struct {
 // Render .
 func (c *Login) Render() vecty.ComponentOrHTML {
 	return elem.Section(
-		vecty.Markup(
-			vecty.Class("hero", "is-primary", "is-fullheight"),
-		),
+		vecty.Markup(vecty.Class("hero", "is-primary", "is-fullheight")),
 		elem.Div(
-			vecty.Markup(
-				vecty.Class("hero-body"),
-			),
+			vecty.Markup(vecty.Class("hero-body")),
 			elem.Div(
-				vecty.Markup(
-					vecty.Class("container"),
-				),
+				vecty.Markup(vecty.Class("container")),
 				elem.Div(
-					vecty.Markup(
-						vecty.Class("columns", "is-centered"),
-					),
+					vecty.Markup(vecty.Class("columns", "is-centered")),
 					elem.Div(
-						vecty.Markup(
-							vecty.Class("column", "is-5-tablet", "is-4-desktop", "is-3-widescreen"),
-						),
+						vecty.Markup(vecty.Class("column", "is-5-tablet", "is-4-desktop", "is-3-widescreen")),
 						c.renderForm(),
 					),
 				),
@@ -42,113 +33,61 @@ func (c *Login) Render() vecty.ComponentOrHTML {
 
 func (c *Login) renderForm() *vecty.HTML {
 	return elem.Form(
-		vecty.Markup(
-			vecty.Class("box"),
+		vecty.Markup(vecty.Class("box")),
+		elem.Div(
+			vecty.Markup(vecty.Class("field", "has-text-centered")),
+			elem.Image(vecty.Markup(prop.Src("/images/logo-bis.png"))),
 		),
 		elem.Div(
-			vecty.Markup(
-				vecty.Class("field", "has-text-centered"),
-			),
-			elem.Image(
-				vecty.Markup(
-					vecty.Property("src", "/images/logo-bis.png"),
-					vecty.Style("width", "167"),
-				),
-			),
-		),
-		elem.Div(
-			vecty.Markup(
-				vecty.Class("field"),
-			),
+			vecty.Markup(vecty.Class("field")),
 			elem.Label(
-				vecty.Markup(
-					vecty.Class("label"),
-				),
+				vecty.Markup(vecty.Class("label")),
 				vecty.Text("Email"),
 			),
 			elem.Div(
-				vecty.Markup(
-					vecty.Class("control", "has-icons-left"),
-				),
+				vecty.Markup(vecty.Class("control", "has-icons-left")),
 				elem.Input(
-					vecty.Markup(
-						vecty.Class("input"),
-						vecty.Property("type", "email"),
-						vecty.Property("placeholder", "e.g. alexjohnson@gmail.com"),
-						vecty.Attribute("required", ""),
-					),
-				),
+					vecty.Markup(vecty.Class("input"),
+						prop.Type(prop.TypeEmail),
+						prop.Placeholder("e.g. alexjohnson@gmail.com"),
+					)),
 				elem.Span(
-					vecty.Markup(
-						vecty.Class("icon", "is-small", "is-left"),
-					),
-					elem.Italic(
-						vecty.Markup(
-							vecty.Class("fa", "fa-envelope"),
-						),
-					),
+					vecty.Markup(vecty.Class("icon", "is-small", "is-left")),
+					elem.Italic(vecty.Markup(vecty.Class("fa", "fa-envelope"))),
 				),
 			),
 		),
 		elem.Div(
-			vecty.Markup(
-				vecty.Class("field"),
-			),
+			vecty.Markup(vecty.Class("field")),
 			elem.Label(
-				vecty.Markup(
-					vecty.Class("label"),
-				),
+				vecty.Markup(vecty.Class("label")),
 				vecty.Text("Password"),
 			),
 			elem.Div(
-				vecty.Markup(
-					vecty.Class("control", "has-icons-left"),
-				),
+				vecty.Markup(vecty.Class("control", "has-icons-left")),
 				elem.Input(
-					vecty.Markup(
-						vecty.Class("input"),
-						vecty.Property("type", "password"),
-						vecty.Property("placeholder", "********"),
-						vecty.Attribute("required", ""),
-					),
-				),
+					vecty.Markup(vecty.Class("input"),
+						prop.Type(prop.TypePassword),
+						prop.Placeholder("********"),
+					)),
 				elem.Span(
-					vecty.Markup(
-						vecty.Class("icon", "is-small", "is-left"),
-					),
-					elem.Italic(
-						vecty.Markup(
-							vecty.Class("fa", "fa-lock"),
-						),
-					),
+					vecty.Markup(vecty.Class("icon", "is-small", "is-left")),
+					elem.Italic(vecty.Markup(vecty.Class("fa", "fa-lock"))),
 				),
 			),
 		),
 		elem.Div(
-			vecty.Markup(
-				vecty.Class("field"),
-			),
+			vecty.Markup(vecty.Class("field")),
 			elem.Label(
-				vecty.Markup(
-					vecty.Class("checkbox"),
-				),
-				elem.Input(
-					vecty.Markup(
-						vecty.Property("type", "checkbox"),
-						vecty.Attribute("required", ""),
-					),
-				),
-				vecty.Text(" Remember me"),
+				vecty.Markup(vecty.Class("checkbox")),
+				elem.Input(vecty.Markup(vecty.Class("mr-1"), prop.Type(prop.TypeCheckbox))),
+				vecty.Text("Remember me"),
 			),
 		),
 		elem.Div(
-			vecty.Markup(
-				vecty.Class("field"),
-			),
+			vecty.Markup(vecty.Class("field")),
 			elem.Button(
-				vecty.Markup(
-					vecty.Class("button", "is-success"),
-				),
+				vecty.Markup(vecty.Class("button", "is-success")),
 				vecty.Text("Login"),
 			),
 		),
