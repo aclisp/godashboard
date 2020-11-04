@@ -3,12 +3,15 @@ package view
 import (
 	"github.com/hexops/vecty"
 	"github.com/hexops/vecty/elem"
+	"github.com/hexops/vecty/event"
 	"github.com/hexops/vecty/prop"
 )
 
 // Header .
 type Header struct {
 	vecty.Core
+
+	active bool
 }
 
 // Render .
@@ -17,7 +20,7 @@ func (c *Header) Render() vecty.ComponentOrHTML {
 		vecty.Markup(vecty.Class("navbar", "has-shadow")),
 		c.renderBrand(),
 		elem.Div(
-			vecty.Markup(vecty.Class("navbar-menu", "is-active")),
+			vecty.Markup(vecty.Class("navbar-menu"), vecty.ClassMap{"is-active": c.active}),
 			elem.Div(
 				vecty.Markup(vecty.Class("navbar-start")),
 				elem.Div(
@@ -37,7 +40,11 @@ func (c *Header) renderBrand() *vecty.HTML {
 			vecty.Markup(vecty.Class("navbar-item")),
 			elem.Image(vecty.Markup(prop.Src("/images/logo.png"))),
 		), elem.Div(
-			vecty.Markup(vecty.Class("navbar-burger")),
+			vecty.Markup(vecty.Class("navbar-burger"), vecty.ClassMap{"is-active": c.active},
+				event.Click(func(e *vecty.Event) {
+					c.active = !c.active
+					vecty.Rerender(c)
+				})),
 			elem.Span(),
 			elem.Span(),
 			elem.Span(),

@@ -18,4 +18,7 @@ require (
 	marwan.io/vecty-router v0.0.0-20200914150808-f30c81f0deb5
 )
 
-replace google.golang.org/grpc => github.com/aclisp/grpc-go v1.2.1-0.20180625151142-1f109e898476
+replace (
+	google.golang.org/grpc => github.com/aclisp/grpc-go v1.2.1-0.20180625151142-1f109e898476
+	marwan.io/vecty-router => github.com/aclisp/vecty-router v0.0.0-20201104061452-69f83d4ac92c
+)

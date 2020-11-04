@@ -9,13 +9,22 @@ import (
 // Main .
 type Main struct {
 	vecty.Core
+
+	navMenus []NavMenu
 }
 
 // Render .
 func (c *Main) Render() vecty.ComponentOrHTML {
 	return elem.Div(
 		vecty.Markup(vecty.Class("column")),
-		router.NewRoute("/go/dashboard/home", &Home{}, router.NewRouteOpts{ExactMatch: true}),
-		router.NewRoute("/go/dashboard/books", &Books{}, router.NewRouteOpts{ExactMatch: true}),
+		c.renderRoutes(),
 	)
+}
+
+func (c *Main) renderRoutes() vecty.List {
+	var vl vecty.List
+	for _, m := range c.navMenus {
+		vl = append(vl, router.NewRoute(m.Link, m.Component, router.NewRouteOpts{ExactMatch: true}))
+	}
+	return vl
 }

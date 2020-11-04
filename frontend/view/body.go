@@ -15,7 +15,7 @@ type Body struct {
 func (c *Body) Render() vecty.ComponentOrHTML {
 	return elem.Body(
 		router.NewRoute("/go/login", &Login{}, router.NewRouteOpts{ExactMatch: true}),
-		router.NewRoute("/go/dashboard", &Dashboard{}, router.NewRouteOpts{}),
+		router.NewRoute("/go/dashboard", NewDashboard("/go/dashboard"), router.NewRouteOpts{}),
 		router.NotFoundHandler(&NotFound{}),
 	)
 }
