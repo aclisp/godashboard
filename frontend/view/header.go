@@ -39,7 +39,8 @@ func (c *Header) renderBrand() *vecty.HTML {
 		elem.Anchor(
 			vecty.Markup(vecty.Class("navbar-item")),
 			elem.Image(vecty.Markup(prop.Src("/images/logo.png"))),
-		), elem.Div(
+		),
+		elem.Div(
 			vecty.Markup(vecty.Class("navbar-burger"), vecty.ClassMap{"is-active": c.active},
 				event.Click(func(e *vecty.Event) {
 					c.active = !c.active

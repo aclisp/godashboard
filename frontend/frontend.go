@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"io/ioutil"
 	"os"
 	"syscall/js"
@@ -9,10 +8,8 @@ import (
 	"github.com/hexops/vecty"
 	_ "google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/grpclog"
-	"google.golang.org/grpc/status"
 
 	"github.com/aclisp/godashboard/frontend/view"
-	dashboard "github.com/aclisp/godashboard/proto"
 )
 
 // Build with Go WASM fork
@@ -61,16 +58,4 @@ func main() {
 
 	vecty.SetTitle("Go Dashboard")
 	vecty.RenderBody(&view.Body{})
-}
-
-func pingBackend(c dashboard.BackendClient, message string) {
-	resp, err := c.Ping(context.Background(), &dashboard.Hello{
-		Message: message,
-	})
-	if err != nil {
-		st := status.Convert(err)
-		grpclog.Println(st.Code(), st.Message(), st.Details())
-		return
-	}
-	grpclog.Println(resp)
 }

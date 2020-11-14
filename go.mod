@@ -13,6 +13,7 @@ require (
 	github.com/shurcooL/vfsgen v0.0.0-20200824052919-0d455de96546 // indirect
 	github.com/sirupsen/logrus v1.7.0
 	golang.org/x/net v0.0.0-20200925080053-05aa5d4ee321
+	golang.org/x/sync v0.0.0-20201020160332-67f06af15bc9
 	google.golang.org/genproto v0.0.0-20200925023002-c2d885f95484
 	google.golang.org/grpc v1.27.0
 	marwan.io/vecty-router v0.0.0-20200914150808-f30c81f0deb5
