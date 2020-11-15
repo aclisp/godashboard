@@ -1,8 +1,6 @@
 package view
 
 import (
-	"fmt"
-
 	"github.com/hexops/vecty"
 	"github.com/hexops/vecty/elem"
 	"golang.org/x/sync/errgroup"
@@ -27,8 +25,8 @@ func (c *Home) Render() vecty.ComponentOrHTML {
 			vecty.Markup(vecty.Class("title")),
 			vecty.Text("Home"),
 		),
-		elem.Paragraph(vecty.Text(fmt.Sprintf("%q", c.ping1))),
-		elem.Paragraph(vecty.Text(fmt.Sprintf("%q", c.ping2))),
+		c.renderPingPong(c.ping1),
+		c.renderPingPong(c.ping2),
 	)
 }
 
@@ -50,4 +48,26 @@ func (c *Home) Mount() {
 		g.Wait()
 		vecty.Rerender(c)
 	}()
+}
+
+func (c *Home) renderPingPong(ping [2]string) *vecty.HTML {
+	return elem.Div(
+		vecty.Markup(vecty.Class("columns")),
+		elem.Div(
+			vecty.Markup(vecty.Class("column", "is-3")),
+			elem.Span(
+				vecty.Markup(vecty.Class("icon")),
+				elem.Italic(vecty.Markup(vecty.Class("fa", "fa-commenting-o"))),
+			),
+			vecty.Text(ping[0]),
+		),
+		elem.Div(
+			vecty.Markup(vecty.Class("column")),
+			elem.Span(
+				vecty.Markup(vecty.Class("icon")),
+				elem.Italic(vecty.Markup(vecty.Class("fa", "fa-reply"))),
+			),
+			vecty.Text(ping[1]),
+		),
+	)
 }
