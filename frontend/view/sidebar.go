@@ -40,7 +40,7 @@ func (c *Sidebar) renderMenuItems() vecty.List {
 		m := m // https://golang.org/doc/faq#closures_and_goroutines
 		vl = append(vl, elem.ListItem(
 			elem.Anchor(
-				vecty.Markup(vecty.ClassMap{"is-active": m.active}, prop.Href(m.Link),
+				vecty.Markup(vecty.ClassMap{"is-active": m.Active}, prop.Href(m.Link),
 					event.Click(func(e *vecty.Event) {
 						c.setActiveMenuItem(i)
 						router.Redirect(m.Link)
@@ -59,9 +59,9 @@ func (c *Sidebar) renderMenuItems() vecty.List {
 func (c *Sidebar) setActiveMenuItem(index int) {
 	for i := range c.NavMenus {
 		if i == index {
-			c.NavMenus[i].active = true
+			c.NavMenus[i].Active = true
 		} else {
-			c.NavMenus[i].active = false
+			c.NavMenus[i].Active = false
 		}
 	}
 }
