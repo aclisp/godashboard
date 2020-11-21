@@ -3,6 +3,7 @@ package view
 import (
 	"github.com/hexops/vecty"
 	"github.com/hexops/vecty/elem"
+	router "marwan.io/vecty-router"
 )
 
 // Dashboard .
@@ -11,6 +12,7 @@ type Dashboard struct {
 
 	navMenus      []NavMenu
 	openBugReport bool
+	openSignOut   bool
 }
 
 // NavMenu .
@@ -37,20 +39,34 @@ func NewDashboard(routePrefix string) *Dashboard {
 // Render .
 func (c *Dashboard) Render() vecty.ComponentOrHTML {
 	return elem.Div(
-		&Header{onReportBug: c.onReportBug},
+		&Header{OnReportBug: c.onReportBug, OnSignOut: c.onSignOut},
 		elem.Section(
 			vecty.Markup(vecty.Class("section")),
 			elem.Div(
 				vecty.Markup(vecty.Class("columns")),
-				&Sidebar{navMenus: c.navMenus},
-				&Main{navMenus: c.navMenus},
+				&Sidebar{NavMenus: c.navMenus},
+				&Main{NavMenus: c.navMenus},
 			),
 		),
 		&ReportBugModal{Open: c.openBugReport, Success: false},
+		&SignOutModal{Open: c.openSignOut, OnConfirm: c.onConfirmSignOut},
 	)
 }
 
 func (c *Dashboard) onReportBug() {
 	c.openBugReport = true
+	c.openSignOut = false
 	vecty.Rerender(c)
+}
+
+func (c *Dashboard) onSignOut() {
+	c.openBugReport = false
+	c.openSignOut = true
+	vecty.Rerender(c)
+}
+
+func (c *Dashboard) onConfirmSignOut() {
+	c.openBugReport = false
+	c.openSignOut = false
+	router.Redirect("/go/login")
 }

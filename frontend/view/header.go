@@ -12,7 +12,8 @@ type Header struct {
 	vecty.Core
 
 	active      bool
-	onReportBug func()
+	OnReportBug func()
+	OnSignOut   func()
 }
 
 // Render .
@@ -75,8 +76,8 @@ func (c *Header) renderUserControls() *vecty.HTML {
 				elem.Anchor(
 					vecty.Markup(vecty.Class("navbar-item"),
 						event.Click(func(e *vecty.Event) {
-							if c.onReportBug != nil {
-								c.onReportBug()
+							if c.OnReportBug != nil {
+								c.OnReportBug()
 							}
 						})),
 					elem.Span(
@@ -85,7 +86,12 @@ func (c *Header) renderUserControls() *vecty.HTML {
 					vecty.Text("Report bug"),
 				),
 				elem.Anchor(
-					vecty.Markup(vecty.Class("navbar-item")),
+					vecty.Markup(vecty.Class("navbar-item"),
+						event.Click(func(e *vecty.Event) {
+							if c.OnSignOut != nil {
+								c.OnSignOut()
+							}
+						})),
 					elem.Span(
 						vecty.Markup(vecty.Class("icon", "is-small", "mr-1")),
 						elem.Italic(vecty.Markup(vecty.Class("fa", "fa-sign-out")))),

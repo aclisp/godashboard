@@ -12,7 +12,7 @@ import (
 type Sidebar struct {
 	vecty.Core
 
-	navMenus []NavMenu
+	NavMenus []NavMenu
 }
 
 // Render .
@@ -35,7 +35,7 @@ func (c *Sidebar) Render() vecty.ComponentOrHTML {
 
 func (c *Sidebar) renderMenuItems() vecty.List {
 	var vl vecty.List
-	for i, m := range c.navMenus {
+	for i, m := range c.NavMenus {
 		i := i
 		m := m // https://golang.org/doc/faq#closures_and_goroutines
 		vl = append(vl, elem.ListItem(
@@ -57,11 +57,11 @@ func (c *Sidebar) renderMenuItems() vecty.List {
 }
 
 func (c *Sidebar) setActiveMenuItem(index int) {
-	for i := range c.navMenus {
+	for i := range c.NavMenus {
 		if i == index {
-			c.navMenus[i].active = true
+			c.NavMenus[i].active = true
 		} else {
-			c.navMenus[i].active = false
+			c.NavMenus[i].active = false
 		}
 	}
 }

@@ -10,7 +10,7 @@ import (
 type Main struct {
 	vecty.Core
 
-	navMenus []NavMenu
+	NavMenus []NavMenu
 }
 
 // Render .
@@ -23,7 +23,7 @@ func (c *Main) Render() vecty.ComponentOrHTML {
 
 func (c *Main) renderRoutes() vecty.List {
 	var vl vecty.List
-	for _, m := range c.navMenus {
+	for _, m := range c.NavMenus {
 		vl = append(vl, router.NewRoute(m.Link, m.Component, router.NewRouteOpts{ExactMatch: true}))
 	}
 	return vl

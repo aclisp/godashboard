@@ -3,7 +3,9 @@ package view
 import (
 	"github.com/hexops/vecty"
 	"github.com/hexops/vecty/elem"
+	"github.com/hexops/vecty/event"
 	"github.com/hexops/vecty/prop"
+	router "marwan.io/vecty-router"
 )
 
 // Login .
@@ -87,7 +89,11 @@ func (c *Login) renderForm() *vecty.HTML {
 		elem.Div(
 			vecty.Markup(vecty.Class("field")),
 			elem.Button(
-				vecty.Markup(vecty.Class("button", "is-success")),
+				vecty.Markup(vecty.Class("button", "is-success"),
+					event.Click(func(e *vecty.Event) {
+						router.Redirect("/go/dashboard")
+					}).PreventDefault(),
+				),
 				vecty.Text("Login"),
 			),
 		),
