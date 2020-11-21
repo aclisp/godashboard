@@ -9,7 +9,8 @@ import (
 type Dashboard struct {
 	vecty.Core
 
-	navMenus []NavMenu
+	navMenus      []NavMenu
+	openBugReport bool
 }
 
 // NavMenu .
@@ -36,7 +37,7 @@ func NewDashboard(routePrefix string) *Dashboard {
 // Render .
 func (c *Dashboard) Render() vecty.ComponentOrHTML {
 	return elem.Div(
-		&Header{},
+		&Header{onReportBug: c.onReportBug},
 		elem.Section(
 			vecty.Markup(vecty.Class("section")),
 			elem.Div(
@@ -45,5 +46,11 @@ func (c *Dashboard) Render() vecty.ComponentOrHTML {
 				&Main{navMenus: c.navMenus},
 			),
 		),
+		&ReportBugModal{Open: c.openBugReport, Success: false},
 	)
+}
+
+func (c *Dashboard) onReportBug() {
+	c.openBugReport = true
+	vecty.Rerender(c)
 }
