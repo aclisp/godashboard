@@ -104,12 +104,55 @@ func outputHTMLElement(n *html.Node, indent string) {
 	elemName := elemName(n)
 	fmt.Printf("%selem.%v(\n", indent, elemName)
 	if len(n.Attr) > 0 {
-		fmt.Printf("  %svecty.Markup(\n", indent)
-		for _, attr := range n.Attr {
+		fmt.Printf("  %svecty.Markup(", indent)
+		moveClassToFront(n.Attr)
+		for i, attr := range n.Attr {
 			attrCode := attrCode(attr.Key, attr.Val)
-			fmt.Printf("    %s%s,\n", indent, attrCode)
+			if i == 0 {
+				fmt.Printf("%s", attrCode)
+			} else {
+				fmt.Printf(",\n    %s%s", indent, attrCode)
+			}
 		}
-		fmt.Printf("  %s),\n", indent)
+		if len(n.Attr) > 1 {
+			fmt.Printf(",\n  %s", indent)
+		}
+		fmt.Printf("),\n")
+	}
+}
+
+func moveClassToFront(attrs []html.Attribute) {
+	// find the first `class` attribute
+	var class html.Attribute
+	for _, attr := range attrs {
+		if attr.Key == "class" {
+			class = attr
+			break
+		}
+	}
+	if class.Key == "" { // not found
+		return
+	}
+	moveToFront(class, attrs)
+}
+
+func moveToFront(class html.Attribute, attrs []html.Attribute) {
+	if len(attrs) == 0 || attrs[0] == class {
+		return
+	}
+	var prev html.Attribute
+	for i, elem := range attrs {
+		switch {
+		case i == 0:
+			attrs[0] = class
+			prev = elem
+		case elem == class:
+			attrs[i] = prev
+			return
+		default:
+			attrs[i] = prev
+			prev = elem
+		}
 	}
 }
 
